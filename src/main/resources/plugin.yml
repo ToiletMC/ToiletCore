@@ -1,0 +1,7 @@
+name: ToiletBox
+version: '${version}'
+main: net.toiletmc.toiletbox.ToiletBox
+api-version: '1.19'
+authors: [TheLittle_Yang]
+description: Plugin for ToiletMC Server
+website: https://toiletmc.net
