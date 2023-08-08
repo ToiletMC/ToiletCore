@@ -1,8 +1,8 @@
-package net.toiletmc.toiletbox;
+package net.toiletmc.toiletcore;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class ToiletBox extends JavaPlugin {
+public final class ToiletCore extends JavaPlugin {
 
     @Override
     public void onEnable() {

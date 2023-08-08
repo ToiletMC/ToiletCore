@@ -1,7 +1,8 @@
-name: ToiletBox
+name: ToiletCore
 version: '${version}'
-main: net.toiletmc.toiletbox.ToiletBox
+main: net.toiletmc.toiletcore.ToiletCore
 api-version: '1.19'
 authors: [TheLittle_Yang]
+softdepend: [PlaceholderAPI]
 description: Plugin for ToiletMC Server
 website: https://toiletmc.net
