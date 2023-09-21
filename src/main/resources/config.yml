@@ -1,0 +1,7 @@
+modules:
+  # Authme密码算法支持
+  AuthmeHook: true
+
+  # PlaceholderAPI支持
+  PlaceholderAPIHook: false
+

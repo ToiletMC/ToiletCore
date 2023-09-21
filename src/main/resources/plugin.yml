@@ -3,6 +3,8 @@ version: '${version}'
 main: net.toiletmc.toiletcore.ToiletCore
 api-version: '1.19'
 authors: [TheLittle_Yang]
-softdepend: [PlaceholderAPI]
+softdepend:
+  - AuthMe
+  - PlaceholderAPI
 description: Plugin for ToiletMC Server
 website: https://toiletmc.net
