@@ -1,4 +1,4 @@
-package net.toiletmc.toiletcore.module.authmehook;
+package net.toiletmc.toiletcore.module.impl.authme;
 
 import fr.xephi.authme.security.HashUtils;
 import fr.xephi.authme.security.crypts.SeparateSaltMethod;

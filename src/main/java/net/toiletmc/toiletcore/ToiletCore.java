@@ -1,29 +1,24 @@
 package net.toiletmc.toiletcore;
 
-import net.toiletmc.toiletcore.module.AbstractModule;
-import net.toiletmc.toiletcore.module.Modules;
-import org.bukkit.configuration.file.FileConfiguration;
+import net.toiletmc.toiletcore.module.ModuleManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Set;
-
 public final class ToiletCore extends JavaPlugin {
-    private Set<AbstractModule> modules;
+    private ModuleManager moduleManager;
 
     @Override
     public void onEnable() {
-        FileConfiguration config = getConfig();
-        for (Modules module : Modules.values()) {
-            modules.add()
-            if (config.getBoolean("modules." + module.name())) {
-
-            }
-        }
-
+        saveDefaultConfig();
+        moduleManager = new ModuleManager(this);
     }
 
     @Override
     public void onDisable() {
 
+    }
+
+    public void reload() {
+        reloadConfig();
+        moduleManager.reload();
     }
 }

@@ -1,7 +1,24 @@
-modules:
-  # Authme密码算法支持
-  AuthmeHook: true
+module:
+  # Authme 密码算法支持
+  authme: false
 
-  # PlaceholderAPI支持
-  PlaceholderAPIHook: false
+  # PlaceholderAPI 支持
+  placeholder-api: false
+
+setting:
+  placeholder-api:
+    name-color-in-world-emoji: false
+    world-emoji:
+      all: ~
+    world-time-emoji:
+      day:
+      night:
+    tps-emoji:
+      18:
+      15:
+      10:
+      0:
+    tab-footer:
+      all: ~
+
 
