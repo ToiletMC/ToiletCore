@@ -34,8 +34,8 @@ public class ModuleManager implements Reloadable {
 
             Class<? extends Module> clazz = module.moduleClass;
             try {
-                Constructor<? extends Module> constructor = clazz.getConstructor(ToiletCore.class);
-                enabledModules.add(constructor.newInstance(plugin));
+                Constructor<? extends Module> constructor = clazz.getConstructor(ToiletCore.class, Modules.class);
+                enabledModules.add(constructor.newInstance(plugin, module));
             } catch (NoSuchMethodException | InvocationTargetException |
                      InstantiationException | IllegalAccessException e) {
                 plugin.getLogger().severe("模块 " + module.name + " 初始化时遇到错误⚠️！");

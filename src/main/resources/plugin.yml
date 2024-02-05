@@ -2,9 +2,29 @@ name: ToiletCore
 version: '${version}'
 main: net.toiletmc.toiletcore.ToiletCore
 api-version: '1.19'
-authors: [TheLittle_Yang]
+authors: [ TheLittle_Yang ]
+
+depend:
+  - "spark"
+
 softdepend:
-  - AuthMe
-  - PlaceholderAPI
+  - "AuthMe"
+  - "PlaceholderAPI"
+
 description: Plugin for ToiletMC Server
 website: https://toiletmc.net
+
+commands:
+  toiletcore:
+    permission: toiletcore.admin
+  shart:
+    aliases: [ shit, poop, poo ]
+    permission: shart.use
+
+permissions:
+  toiletcore.admin:
+    default: op
+  shart.use:
+    default: true
+  shart.others:
+    default: op
