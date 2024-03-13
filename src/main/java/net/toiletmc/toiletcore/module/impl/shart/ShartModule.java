@@ -3,7 +3,7 @@ package net.toiletmc.toiletcore.module.impl.shart;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Modules;
+import net.toiletmc.toiletcore.module.enums.Module;
 import net.toiletmc.toiletcore.module.impl.shart.task.ScatterShartTask;
 import net.toiletmc.toiletcore.module.interfaces.AbstractModule;
 import org.bukkit.Bukkit;
@@ -22,7 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class ShartModule extends AbstractModule implements CommandExecutor, Listener, TabCompleter {
-    public ShartModule(ToiletCore plugin, Modules module) {
+    public ShartModule(ToiletCore plugin, Module module) {
         super(plugin, module);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         plugin.getCommand("shart").setExecutor(this);

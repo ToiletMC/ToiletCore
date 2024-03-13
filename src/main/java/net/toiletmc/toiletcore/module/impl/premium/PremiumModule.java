@@ -1,7 +1,7 @@
 package net.toiletmc.toiletcore.module.impl.premium;
 
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Modules;
+import net.toiletmc.toiletcore.module.enums.Module;
 import net.toiletmc.toiletcore.module.interfaces.AbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 public class PremiumModule extends AbstractModule implements Listener {
     private final List<String> commands = new ArrayList<>();
 
-    public PremiumModule(ToiletCore plugin, Modules module) {
+    public PremiumModule(ToiletCore plugin, Module module) {
         super(plugin, module);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         reload();
@@ -42,6 +42,7 @@ public class PremiumModule extends AbstractModule implements Listener {
 
     @Override
     public void reload() {
+        super.reload();
         commands.clear();
         commands.addAll(getConfig().getStringList("commands"));
         getPlugin().getLogger().info("正版验证奖励：" + commands.size() + "条命令已加载！");

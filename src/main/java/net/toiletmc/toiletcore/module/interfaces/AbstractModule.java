@@ -2,23 +2,42 @@ package net.toiletmc.toiletcore.module.interfaces;
 
 import lombok.Getter;
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Modules;
+import net.toiletmc.toiletcore.module.enums.Module;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 
-import java.util.logging.Logger;
+import java.io.File;
 
 @Getter
-public abstract class AbstractModule implements Module {
+public abstract class AbstractModule implements net.toiletmc.toiletcore.module.interfaces.Module {
     protected final ToiletCore plugin;
-    protected final Modules module;
+    protected final Module module;
+    protected FileConfiguration config;
 
-    public AbstractModule(ToiletCore plugin, Modules module) {
+    public AbstractModule(ToiletCore plugin, Module module) {
         this.plugin = plugin;
         this.module = module;
+        loadConfig();
     }
 
     @Override
     public ConfigurationSection getConfig() {
-        return plugin.getConfig().getConfigurationSection("setting." + module.name);
+        return this.config;
+    }
+
+    @Override
+    public void reload() {
+        loadConfig();
+    }
+
+    private void loadConfig() {
+        File configFile = new File(plugin.getDataFolder(), "settings/" + module.name + ".yml");
+        if (!configFile.exists()) {
+            plugin.saveResource("settings/" + module.name + ".yml", false);
+            configFile = new File(plugin.getDataFolder(), "settings/" + module.name + ".yml");
+        }
+
+        config = YamlConfiguration.loadConfiguration(configFile);
     }
 }

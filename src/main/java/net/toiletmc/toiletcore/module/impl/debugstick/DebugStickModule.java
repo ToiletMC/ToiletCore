@@ -3,7 +3,7 @@ package net.toiletmc.toiletcore.module.impl.debugstick;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Modules;
+import net.toiletmc.toiletcore.module.enums.Module;
 import net.toiletmc.toiletcore.module.interfaces.AbstractModule;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -25,7 +25,7 @@ import java.util.List;
 public class DebugStickModule extends AbstractModule implements Listener {
     private final List<String> excludedBlocks = new ArrayList<>();
 
-    public DebugStickModule(ToiletCore plugin, Modules module) {
+    public DebugStickModule(ToiletCore plugin, Module module) {
         super(plugin, module);
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         reload();
@@ -68,6 +68,8 @@ public class DebugStickModule extends AbstractModule implements Listener {
 
     @Override
     public void reload() {
+        super.reload();
+
         excludedBlocks.clear();
         excludedBlocks.addAll(getConfig().getStringList("excluded_blocks"));
 

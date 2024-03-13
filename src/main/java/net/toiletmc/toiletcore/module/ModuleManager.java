@@ -1,9 +1,9 @@
 package net.toiletmc.toiletcore.module;
 
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Modules;
-import net.toiletmc.toiletcore.module.interfaces.Module;
+import net.toiletmc.toiletcore.module.enums.Module;
 import net.toiletmc.toiletcore.module.interfaces.Reloadable;
+import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 
 import java.lang.reflect.Constructor;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ModuleManager implements Reloadable {
     private final ToiletCore plugin;
-    private final List<Module> enabledModules = new ArrayList<>();
+    private final List<net.toiletmc.toiletcore.module.interfaces.Module> enabledModules = new ArrayList<>();
 
     public ModuleManager(ToiletCore plugin) {
         this.plugin = plugin;
@@ -26,22 +26,22 @@ public class ModuleManager implements Reloadable {
     }
 
     private void initModuleInstance() {
-        for (Modules module : Modules.values()) {
+        for (Module module : Module.values()) {
             if (!isEnable(module.name)) {
-                plugin.getLogger().info("模块 " + module.name + " 未开启❎");
+                plugin.getLogger().info("模块未启用❎ - " + module.name);
                 continue;
             }
 
-            Class<? extends Module> clazz = module.moduleClass;
+            Class<? extends net.toiletmc.toiletcore.module.interfaces.Module> clazz = module.moduleClass;
             try {
-                Constructor<? extends Module> constructor = clazz.getConstructor(ToiletCore.class, Modules.class);
+                Constructor<? extends net.toiletmc.toiletcore.module.interfaces.Module> constructor = clazz.getConstructor(ToiletCore.class, Module.class);
                 enabledModules.add(constructor.newInstance(plugin, module));
             } catch (NoSuchMethodException | InvocationTargetException |
                      InstantiationException | IllegalAccessException e) {
                 plugin.getLogger().severe("模块 " + module.name + " 初始化时遇到错误⚠️！");
                 throw new RuntimeException(e);
             }
-            plugin.getLogger().info("模块 " + module.name + " 已启用✅");
+            plugin.getLogger().info("模块已启用✅ - " + module.name);
         }
     }
 
