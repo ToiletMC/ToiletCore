@@ -1,25 +1,24 @@
-package net.toiletmc.toiletcore.module.impl.lagalert;
+package net.toiletmc.toiletcore.module.lagalert;
 
 import me.lucko.spark.api.statistic.StatisticWindow;
 import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
 import me.lucko.spark.api.statistic.types.GenericStatistic;
-import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.toiletmc.toiletcore.module.interfaces.Reloadable;
 import org.bukkit.Bukkit;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class MSPTCheckTask extends BukkitRunnable implements Reloadable {
+public class MSPTCheckTask extends BukkitRunnable {
     private final LagAlertModule module;
     private int broTimes = 0;
     private boolean skip = false;
 
-    private int maxMSPT;
-    private String message;
+    private final int maxMSPT;
+    private final String message;
 
     public MSPTCheckTask(LagAlertModule module) {
         this.module = module;
-        reload();
+        maxMSPT = module.getConfig().getInt("max-mspt", 80);
+        message = module.getConfig().getString("lag-broadcast", "请通知管理员填写提示信息。");
     }
 
 
@@ -53,11 +52,5 @@ public class MSPTCheckTask extends BukkitRunnable implements Reloadable {
                 "%mspt%", String.valueOf((int) getMspt()));
         Bukkit.getServer().sendMessage(MiniMessage.miniMessage().deserialize(willSend));
 
-    }
-
-    @Override
-    public void reload() {
-        maxMSPT = module.getConfig().getInt("max-mspt", 80);
-        message = module.getConfig().getString("lag-broadcast", "请通知管理员填写提示信息。");
     }
 }

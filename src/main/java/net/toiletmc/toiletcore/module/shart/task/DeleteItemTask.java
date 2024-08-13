@@ -1,6 +1,6 @@
-package net.toiletmc.toiletcore.module.impl.shart.task;
+package net.toiletmc.toiletcore.module.shart.task;
 
-import net.toiletmc.toiletcore.module.impl.shart.ShartModule;
+import net.toiletmc.toiletcore.module.shart.ShartModule;
 import org.bukkit.entity.Item;
 import org.bukkit.scheduler.BukkitRunnable;
 

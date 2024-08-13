@@ -1,4 +1,4 @@
-package net.toiletmc.toiletcore.module.impl.authme;
+package net.toiletmc.toiletcore.module.authme;
 
 import fr.xephi.authme.api.v3.AuthMeApi;
 import fr.xephi.authme.events.PasswordEncryptionEvent;

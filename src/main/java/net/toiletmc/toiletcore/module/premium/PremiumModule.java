@@ -1,11 +1,10 @@
-package net.toiletmc.toiletcore.module.impl.premium;
+package net.toiletmc.toiletcore.module.premium;
 
-import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Module;
-import net.toiletmc.toiletcore.module.interfaces.AbstractModule;
+import net.toiletmc.toiletcore.api.module.ToiletModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 
@@ -14,14 +13,21 @@ import java.util.List;
 import java.util.UUID;
 import java.util.logging.Logger;
 
-public class PremiumModule extends AbstractModule implements Listener {
+public class PremiumModule extends ToiletModule implements Listener {
     private final List<String> commands = new ArrayList<>();
 
-    public PremiumModule(ToiletCore plugin, Module module) {
-        super(plugin, module);
+    @Override
+    public void onEnable() {
+        commands.addAll(getConfig().getStringList("commands"));
+        getPlugin().getLogger().info("正版验证奖励：" + commands.size() + "条命令已加载！");
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        reload();
     }
+
+    @Override
+    public void onDisable() {
+        HandlerList.unregisterAll(this);
+    }
+
 
     @EventHandler
     public void OnJoin(PlayerJoinEvent event) {
@@ -38,13 +44,5 @@ public class PremiumModule extends AbstractModule implements Listener {
                 logger.info(player.getName() + " 是正版用户，已执行命令。");
             }
         }
-    }
-
-    @Override
-    public void reload() {
-        super.reload();
-        commands.clear();
-        commands.addAll(getConfig().getStringList("commands"));
-        getPlugin().getLogger().info("正版验证奖励：" + commands.size() + "条命令已加载！");
     }
 }

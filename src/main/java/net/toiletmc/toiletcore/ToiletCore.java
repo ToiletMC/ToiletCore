@@ -13,19 +13,22 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public final class ToiletCore extends JavaPlugin {
+    @Getter
+    private static ToiletCore instance;
     @Getter
     private Spark spark;
     private ModuleManager moduleManager;
 
     @Override
     public void onEnable() {
+        instance = this;
         saveDefaultConfig();
         initSpark();
         moduleManager = new ModuleManager(this);
+        moduleManager.enableAllModules();
     }
 
     @Override
@@ -52,7 +55,8 @@ public final class ToiletCore extends JavaPlugin {
 
     public void reload() {
         reloadConfig();
-        moduleManager.reload();
+        moduleManager.disableAllModules();
+        moduleManager.enableAllModules();
     }
 
     private void initSpark() {

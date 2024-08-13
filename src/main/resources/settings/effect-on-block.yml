@@ -1,0 +1,22 @@
+negative_effects:
+  - 'BLINDNESS'
+  - 'CONFUSION'
+  - 'DARKNESS'
+  - 'HUNGER'
+  - 'POISON'
+  - 'SLOW'
+  - 'SLOW_DIGGING'
+  - 'UNLUCK'
+  - 'WEAKNESS'
+  - 'WITHER'
+regions:
+  hotSpring:
+    location:
+      loc1: "world;-1499;67;-3290"
+      loc2: "world;-1489;56;-3300"
+    need-in-water: true
+    remove-negative: true
+    give-exp-points: 1
+    give-effects:
+      - 'REGENERATION'
+      - 'WATER_BREATHING'

@@ -1,10 +1,8 @@
-package net.toiletmc.toiletcore.module.impl.debugstick;
+package net.toiletmc.toiletcore.module.debugstick;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Module;
-import net.toiletmc.toiletcore.module.interfaces.AbstractModule;
+import net.toiletmc.toiletcore.api.module.ToiletModule;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -13,6 +11,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
@@ -22,14 +21,34 @@ import org.bukkit.inventory.ShapedRecipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DebugStickModule extends AbstractModule implements Listener {
+public class DebugStickModule extends ToiletModule implements Listener {
     private final List<String> excludedBlocks = new ArrayList<>();
 
-    public DebugStickModule(ToiletCore plugin, Module module) {
-        super(plugin, module);
+    @Override
+    public void onEnable() {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
-        reload();
+
+        excludedBlocks.clear();
+        excludedBlocks.addAll(getConfig().getStringList("excluded_blocks"));
+
+        Bukkit.removeRecipe(new NamespacedKey(plugin, moduleEnum.id));
+
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin, moduleEnum.id), new ItemStack(Material.DEBUG_STICK, 1));
+        recipe.shape(
+                "  s",
+                "np ",
+                "pn ");
+        recipe.setIngredient('n', Material.NETHERITE_INGOT);
+        recipe.setIngredient('s', Material.NETHER_STAR);
+        recipe.setIngredient('p', Material.STICK);
+        Bukkit.addRecipe(recipe);
     }
+
+    @Override
+    public void onDisable() {
+        HandlerList.unregisterAll(this);
+    }
+
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -64,25 +83,5 @@ public class DebugStickModule extends AbstractModule implements Listener {
                 }
             }
         }
-    }
-
-    @Override
-    public void reload() {
-        super.reload();
-
-        excludedBlocks.clear();
-        excludedBlocks.addAll(getConfig().getStringList("excluded_blocks"));
-
-        Bukkit.removeRecipe(new NamespacedKey(plugin, module.name));
-
-        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin, module.name), new ItemStack(Material.DEBUG_STICK, 1));
-        recipe.shape(
-                "  s",
-                "np ",
-                "pn ");
-        recipe.setIngredient('n', Material.NETHERITE_INGOT);
-        recipe.setIngredient('s', Material.NETHER_STAR);
-        recipe.setIngredient('p', Material.STICK);
-        Bukkit.addRecipe(recipe);
     }
 }

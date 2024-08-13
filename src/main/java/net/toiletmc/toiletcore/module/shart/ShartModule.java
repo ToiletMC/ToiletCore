@@ -1,11 +1,11 @@
-package net.toiletmc.toiletcore.module.impl.shart;
+package net.toiletmc.toiletcore.module.shart;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.enums.Module;
-import net.toiletmc.toiletcore.module.impl.shart.task.ScatterShartTask;
-import net.toiletmc.toiletcore.module.interfaces.AbstractModule;
+import net.toiletmc.toiletcore.module.ModuleManager;
+import net.toiletmc.toiletcore.module.shart.task.ScatterShartTask;
+import net.toiletmc.toiletcore.api.module.ToiletModule;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,6 +13,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.ItemMergeEvent;
 import org.bukkit.event.inventory.InventoryPickupItemEvent;
@@ -21,12 +22,19 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ShartModule extends AbstractModule implements CommandExecutor, Listener, TabCompleter {
-    public ShartModule(ToiletCore plugin, Module module) {
-        super(plugin, module);
+public class ShartModule extends ToiletModule implements CommandExecutor, Listener, TabCompleter {
+    @Override
+    public void onEnable() {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
         plugin.getCommand("shart").setExecutor(this);
         plugin.getCommand("shart").setTabCompleter(this);
+    }
+
+    @Override
+    public void onDisable() {
+        HandlerList.unregisterAll(this);
+        plugin.getCommand("shart").setExecutor(null);
+        plugin.getCommand("shart").setTabCompleter(null);
     }
 
     @Override
