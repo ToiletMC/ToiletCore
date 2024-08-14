@@ -14,10 +14,8 @@ import net.toiletmc.toiletcore.module.premium.PremiumModule;
 import net.toiletmc.toiletcore.module.shart.ShartModule;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class ModuleManager {
@@ -38,11 +36,8 @@ public class ModuleManager {
                 continue;
             }
 
-
-            Class<? extends ToiletModule> clazz = moduleEnum.moduleClass;
             try {
-                Constructor<? extends ToiletModule> constructor = clazz.getConstructor();
-                ToiletModule moduleInstance = constructor.newInstance();
+                ToiletModule moduleInstance = moduleEnum.moduleClass.getDeclaredConstructor().newInstance();
                 moduleInstance.init(moduleEnum);
                 moduleInstance.onEnable();
                 enabledModules.add(moduleInstance);
@@ -55,13 +50,18 @@ public class ModuleManager {
             }
         }
 
-        plugin.getLogger().info("模块初始化完成！模块状态：");
+        plugin.getLogger().info("模块初始化完成！");
         allEnabledModules.stream()
-                .sorted(Comparator.comparing(p -> p.first().id))
-                .forEach(p -> plugin.getLogger().info("模块已启用✅ - " + p.first().id));
+                .map(p -> p.first().id)
+                .sorted(String::compareTo)
+                .reduce((a, b) -> a + ", " + b)
+                .ifPresent(str -> plugin.getLogger().info("✅ 启用的模块：" + str));
+
         allDisabledModules.stream()
-                .sorted(Comparator.comparing(p -> p.first().id))
-                .forEach(p -> plugin.getLogger().info("模块未启用❎ - " + p.first().id));
+                .map(p -> p.first().id)
+                .sorted(String::compareTo)
+                .reduce((a, b) -> a + ", " + b)
+                .ifPresent(str -> plugin.getLogger().info("🚫 未启用的模块：" + str));
     }
 
     public void disableAllModules() {

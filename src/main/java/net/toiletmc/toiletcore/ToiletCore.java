@@ -27,19 +27,18 @@ public final class ToiletCore extends JavaPlugin {
         instance = this;
         saveDefaultConfig();
         initSpark();
-        moduleManager = new ModuleManager(this);
-        moduleManager.enableAllModules();
+        initModuleManager();
     }
 
     @Override
     public void onDisable() {
-
+        moduleManager.disableAllModules();
     }
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
-            reload();
+            reloadPlugin();
             sender.sendMessage(Component.text("插件已重载！").color(NamedTextColor.GREEN));
         }
         return true;
@@ -53,7 +52,7 @@ public final class ToiletCore extends JavaPlugin {
         return null;
     }
 
-    public void reload() {
+    public void reloadPlugin() {
         reloadConfig();
         moduleManager.disableAllModules();
         moduleManager.enableAllModules();
@@ -68,5 +67,10 @@ public final class ToiletCore extends JavaPlugin {
             spark = null;
             getLogger().severe("Spark 服务异常，请排查错误！");
         }
+    }
+
+    private void initModuleManager() {
+        moduleManager = new ModuleManager(this);
+        moduleManager.enableAllModules();
     }
 }
