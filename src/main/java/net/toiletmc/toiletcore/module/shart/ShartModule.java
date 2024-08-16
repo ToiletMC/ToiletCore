@@ -2,8 +2,6 @@ package net.toiletmc.toiletcore.module.shart;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.ModuleManager;
 import net.toiletmc.toiletcore.module.shart.task.ScatterShartTask;
 import net.toiletmc.toiletcore.api.module.ToiletModule;
 import org.bukkit.Bukkit;
@@ -38,7 +36,8 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
         if (args.length == 0 && sender instanceof Player player) {
             new ScatterShartTask(this, player);
             return true;
@@ -63,7 +62,8 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
+            @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("shart.others")) {
             return null;
         }
@@ -84,11 +84,13 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
 
     @EventHandler
     public void onMerge(ItemMergeEvent event) {
-        if (event.getEntity().hasMetadata("shart")) event.setCancelled(true);
+        if (event.getEntity().hasMetadata("shart"))
+            event.setCancelled(true);
     }
 
     @EventHandler
     public void onPickUp(InventoryPickupItemEvent event) {
-        if (event.getItem().hasMetadata("shart")) event.setCancelled(true);
+        if (event.getItem().hasMetadata("shart"))
+            event.setCancelled(true);
     }
 }

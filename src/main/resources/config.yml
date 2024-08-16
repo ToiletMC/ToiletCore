@@ -5,3 +5,4 @@ module:
   placeholder-api: false
   premium: false
   shart: true
+  hook: false

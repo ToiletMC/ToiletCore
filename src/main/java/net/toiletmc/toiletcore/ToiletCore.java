@@ -7,7 +7,9 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import net.toiletmc.toiletcore.module.ModuleManager;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
+import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +38,8 @@ public final class ToiletCore extends JavaPlugin {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
+            @NotNull String[] args) {
         if (args.length == 1 && args[0].equalsIgnoreCase("reload")) {
             reloadPlugin();
             sender.sendMessage(Component.text("插件已重载！").color(NamedTextColor.GREEN));
@@ -45,7 +48,8 @@ public final class ToiletCore extends JavaPlugin {
     }
 
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
+            @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) {
             return List.of("reload");
         }

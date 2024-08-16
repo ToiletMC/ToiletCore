@@ -8,6 +8,7 @@ import net.toiletmc.toiletcore.api.module.ToiletModule;
 import net.toiletmc.toiletcore.module.authme.AuthmeModule;
 import net.toiletmc.toiletcore.module.debugstick.DebugStickModule;
 import net.toiletmc.toiletcore.module.effectonblock.EffectOnBlockModule;
+import net.toiletmc.toiletcore.module.hook.HookModule;
 import net.toiletmc.toiletcore.module.lagalert.LagAlertModule;
 import net.toiletmc.toiletcore.module.placeholder.PlaceholderModule;
 import net.toiletmc.toiletcore.module.premium.PremiumModule;
@@ -42,8 +43,8 @@ public class ModuleManager {
                 moduleInstance.onEnable();
                 enabledModules.add(moduleInstance);
                 allEnabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.TRUE));
-            } catch (NoSuchMethodException | InvocationTargetException |
-                     InstantiationException | IllegalAccessException e) {
+            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException
+                    | IllegalAccessException e) {
                 plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！");
                 allDisabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.FALSE));
                 throw new RuntimeException(e);
@@ -82,7 +83,8 @@ public class ModuleManager {
         LAGALERT("lag-alert", LagAlertModule.class, "滞后监测程序"),
         SHART("shart", ShartModule.class, "排泄"),
         PREMIUM("premium", PremiumModule.class, "正版玩家奖励"),
-        EFFECTONBLOCK("effect-on-block", EffectOnBlockModule.class, "玩家区域内效果");
+        EFFECTONBLOCK("effect-on-block", EffectOnBlockModule.class, "玩家区域内效果"),
+        HOOK("hook", HookModule.class, "???");
 
         public final String id;
         public final Class<? extends ToiletModule> moduleClass;

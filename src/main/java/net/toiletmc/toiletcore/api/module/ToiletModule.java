@@ -6,6 +6,8 @@ import net.toiletmc.toiletcore.module.ModuleManager;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.configuration.file.YamlConstructor;
+import org.bukkit.configuration.file.YamlRepresenter;
 
 import java.io.File;
 import java.io.IOException;
@@ -48,7 +50,7 @@ public abstract class ToiletModule implements Module {
     public void saveConfig() {
         try {
             config.save(new File(plugin.getDataFolder(), "settings/" + moduleEnum.id + ".yml"));
-        } catch (IOException e) {
+        } catch (Exception e) {
             plugin.getLogger().warning("模块 " + moduleEnum.id + " 保存配置文件时出错！");
             throw new RuntimeException(e);
         }
