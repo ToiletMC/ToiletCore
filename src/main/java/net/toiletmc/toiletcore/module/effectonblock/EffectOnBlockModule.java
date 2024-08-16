@@ -1,8 +1,6 @@
 package net.toiletmc.toiletcore.module.effectonblock;
 
 import lombok.Getter;
-import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.module.ModuleManager;
 import net.toiletmc.toiletcore.api.module.ToiletModule;
 import net.toiletmc.toiletcore.api.objects.EOBRegion;
 import org.bukkit.configuration.ConfigurationSection;
