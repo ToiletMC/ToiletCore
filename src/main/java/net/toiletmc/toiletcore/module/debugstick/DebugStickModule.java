@@ -3,11 +3,13 @@ package net.toiletmc.toiletcore.module.debugstick;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.utils.MaterialUtil;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
+import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.type.Beehive;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
@@ -22,18 +24,63 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DebugStickModule extends ToiletModule implements Listener {
-    private final List<String> excludedBlocks = new ArrayList<>();
+    private final List<Material> blocklistBlocks = new ArrayList<>();
 
     @Override
     public void onEnable() {
+        addRecipe();
         plugin.getServer().getPluginManager().registerEvents(this, plugin);
+        blocklistBlocks.addAll(MaterialUtil.getMaterialSet(getConfig().getStringList("blacklist-blocks")));
+    }
 
-        excludedBlocks.clear();
-        excludedBlocks.addAll(getConfig().getStringList("excluded_blocks"));
+    @Override
+    public void onDisable() {
+        HandlerList.unregisterAll(this);
+        removeRecipe();
+    }
 
-        Bukkit.removeRecipe(new NamespacedKey(plugin, moduleEnum.id));
 
-        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin, moduleEnum.id), new ItemStack(Material.DEBUG_STICK, 1));
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        Player player = event.getPlayer();
+        Action action = event.getAction();
+
+        if (player.isOp()) {
+            return;
+        }
+
+        if (player.getInventory().getItemInMainHand().getType() != Material.DEBUG_STICK &&
+                player.getInventory().getItemInOffHand().getType() != Material.DEBUG_STICK
+        ) {
+            return;
+        }
+
+        //  调试棒会触发BlockPlaceEvent，所以就算不通知，对应的保护插件也会通知。
+        if (event.useItemInHand() == Event.Result.DENY) {
+            player.sendMessage(Component.text("你不能在这里使用调试棒！").color(NamedTextColor.RED));
+            return;
+        }
+
+        if (!player.hasPermission("minecraft.debugstick.always")) {
+            player.sendMessage("抱歉，只有建筑师可以使用调试棒。");
+            event.setUseItemInHand(Event.Result.DENY);
+            return;
+        }
+
+        Block clickedblock = event.getClickedBlock();
+        if (clickedblock != null && action == Action.RIGHT_CLICK_BLOCK) {
+            if (blocklistBlocks.contains(clickedblock.getType()) ||
+                    clickedblock.getBlockData() instanceof Ageable ||
+                    clickedblock.getBlockData() instanceof Beehive) {
+                event.setUseItemInHand(Event.Result.DENY);
+                player.sendMessage("你不能对这种类型的方块使用调试棒！");
+            }
+        }
+    }
+
+    private void addRecipe() {
+        ShapedRecipe recipe = new ShapedRecipe(new NamespacedKey(plugin, moduleEnum.toString()),
+                new ItemStack(Material.DEBUG_STICK, 1));
         recipe.shape(
                 "  s",
                 "np ",
@@ -44,44 +91,8 @@ public class DebugStickModule extends ToiletModule implements Listener {
         Bukkit.addRecipe(recipe);
     }
 
-    @Override
-    public void onDisable() {
-        HandlerList.unregisterAll(this);
-    }
-
-
-    @EventHandler
-    public void onPlayerInteract(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        GameMode playerGameMode = player.getGameMode();
-        Action action = event.getAction();
-
-        if (player.getInventory().getItemInMainHand().getType().equals(Material.DEBUG_STICK) ||
-                player.getInventory().getItemInOffHand().getType().equals(Material.DEBUG_STICK)
-        ) {
-            if (!playerGameMode.equals(GameMode.SURVIVAL)) {
-                return;
-            }
-
-            //  调试棒会触发BlockPlaceEvent，所以就算不通知，对应的保护插件也会通知。
-            if (event.useItemInHand() == Event.Result.DENY) {
-                player.sendMessage(Component.text("你不能在这里使用调试棒！").color(NamedTextColor.RED));
-                return;
-            }
-
-            if (!player.hasPermission("minecraft.debugstick.always")) {
-                player.sendMessage("抱歉，只有建筑师可以使用调试棒。");
-                event.setUseItemInHand(Event.Result.DENY);
-                return;
-            }
-
-            Block clickedblock = event.getClickedBlock();
-            if (clickedblock != null && action == Action.RIGHT_CLICK_BLOCK) {
-                if (excludedBlocks.contains(clickedblock.getType().toString())) {
-                    event.setUseItemInHand(Event.Result.DENY);
-                    player.sendMessage("你不能对这种类型的方块使用调试棒！");
-                }
-            }
-        }
+    private void removeRecipe() {
+        Bukkit.removeRecipe(new NamespacedKey(plugin, moduleEnum.toString()));
     }
 }
+

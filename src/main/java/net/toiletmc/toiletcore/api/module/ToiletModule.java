@@ -6,11 +6,8 @@ import net.toiletmc.toiletcore.module.ModuleManager;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
-import org.bukkit.configuration.file.YamlConstructor;
-import org.bukkit.configuration.file.YamlRepresenter;
 
 import java.io.File;
-import java.io.IOException;
 
 @Getter
 public abstract class ToiletModule implements Module {

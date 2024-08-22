@@ -13,7 +13,7 @@ public class LocationUtil {
      */
     public static Location fromString(String string) {
         String[] split = string.split(";");
-        Location location = null;
+        Location location;
         try {
             location = new Location(
                     Bukkit.getWorld(split[0]),
