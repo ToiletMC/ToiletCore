@@ -44,7 +44,7 @@ public class ModuleManager {
                 enabledModules.add(moduleInstance);
                 allEnabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.TRUE));
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException
-                    | IllegalAccessException e) {
+                     | IllegalAccessException e) {
                 plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！");
                 allDisabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.FALSE));
                 throw new RuntimeException(e);
@@ -67,6 +67,7 @@ public class ModuleManager {
 
     public void disableAllModules() {
         plugin.getLogger().info("正在禁用所有模块……");
+        enabledModules.forEach(net.toiletmc.toiletcore.api.module.Module::saveConfig);
         enabledModules.forEach(net.toiletmc.toiletcore.api.module.Module::onDisable);
         enabledModules.clear();
     }

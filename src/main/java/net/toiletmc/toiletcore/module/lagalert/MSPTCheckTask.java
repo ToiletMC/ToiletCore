@@ -10,7 +10,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 public class MSPTCheckTask extends BukkitRunnable {
     private final LagAlertModule module;
     private int broTimes = 0;
-    private boolean skip = false;
 
     private final int maxMSPT;
     private final String message;
@@ -24,11 +23,6 @@ public class MSPTCheckTask extends BukkitRunnable {
 
     @Override
     public void run() {
-        if (skip) {
-            skip = false;
-            return;
-        }
-
         if (broTimes != 0) {
             broTimes = broTimes >= 15 ? 0 : broTimes + 1;
             return;

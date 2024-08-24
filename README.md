@@ -4,20 +4,20 @@
 
 ## DebugStick
 
-允许玩家在生存模式合成调试棒
-
-### 权限授予命令
-
-####    
-
-#### 原版使用的权限：
-
-- minecraft.debugstick
-- minecraft.debugstick.always
+因为玩家可以生存模式合成调试棒，所以该模块可以限制一些逆天操作。
 
 ### 合成配方
 
 ![image](https://user-images.githubusercontent.com/77124888/175134422-a4c1c9c8-3ab6-4693-9fec-0f3cfa30e17e.png)
+
+### 调试棒必备的权限：
+
+- minecraft.debugstick
+- minecraft.debugstick.always
+
+## EffectOnBlock
+
+该模块主要是实现温泉插件，也可以用来干点别的事情…
 
 ## LagAlter
 
@@ -54,13 +54,15 @@
 
 ## 代办列表
 
-- [X] [DebugStickSupport](https://github.com/ToiletMC/plugin-DebugStickSupport)
-- [X] [ToiletPAPI](https://github.com/ToiletMC/plugin-ToiletPAPI)
-- [X] [AuthmeEncryptionConverter](https://github.com/ToiletMC/plugin-AuthmeEncryptionConverter)
-- [X] [LagManager](https://github.com/ToiletMC/plugin-LagManager)
-- [X] [Shart](https://github.com/ToiletMC/plugin-Shart)
-- [ ] [EffectOnBlock](https://github.com/ToiletMC/plugin-EffectOnBlock)
+- [ ] [DebugStickSupport](https://github.com/ToiletMC/plugin-DebugStickSupport)
+- [ ] [ToiletPAPI](https://github.com/ToiletMC/plugin-ToiletPAPI)
+- [ ] [AuthmeEncryptionConverter](https://github.com/ToiletMC/plugin-AuthmeEncryptionConverter)
+- [ ] [LagManager](https://github.com/ToiletMC/plugin-LagManager)
+- [ ] [Shart](https://github.com/ToiletMC/plugin-Shart)
+- [X] [EffectOnBlock](https://github.com/ToiletMC/plugin-EffectOnBlock)
 - [ ] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)
 - [X] [ZBYZ](https://github.com/ToiletMC/plugin-ZBYZ)
 - [ ] [CDK](https://github.com/ToiletMC/plugin-CDK)
 - [ ] [SignItem](https://github.com/ToiletMC/plugin-SignItem)
+- [ ] [EggRespawn](https://github.com/XXY233/EggRespawn)
+- [ ] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)

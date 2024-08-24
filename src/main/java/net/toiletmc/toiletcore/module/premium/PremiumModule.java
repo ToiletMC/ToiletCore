@@ -10,7 +10,6 @@ import org.bukkit.event.player.PlayerJoinEvent;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 public class PremiumModule extends ToiletModule implements Listener {
@@ -32,17 +31,13 @@ public class PremiumModule extends ToiletModule implements Listener {
     @EventHandler
     public void OnJoin(PlayerJoinEvent event) {
         Logger logger = getPlugin().getLogger();
-
         Player player = event.getPlayer();
-        if (!player.hasPlayedBefore()) {
-            UUID uuid = player.getUniqueId();
-            int type = uuid.version();
-            if (type == 4) {
-                for (String command : commands) {
-                    Bukkit.dispatchCommand(getPlugin().getServer().getConsoleSender(), command.replace("[player]", player.getName()));
-                }
-                logger.info(player.getName() + " 是正版用户，已执行命令。");
+
+        if (!player.hasPermission("group.premium") && player.getUniqueId().version() == 4) {
+            for (String command : commands) {
+                Bukkit.dispatchCommand(getPlugin().getServer().getConsoleSender(), command.replace("[player]", player.getName()));
             }
+            logger.info(player.getName() + " 是正版用户，已执行命令。");
         }
     }
 }
