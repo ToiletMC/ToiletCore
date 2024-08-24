@@ -5,9 +5,11 @@ import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.toiletmc.toiletcore.ToiletCore;
 import net.toiletmc.toiletcore.api.module.Module;
 import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.module.antienderman.AntiEndermanModule;
 import net.toiletmc.toiletcore.module.authme.AuthmeModule;
 import net.toiletmc.toiletcore.module.debugstick.DebugStickModule;
 import net.toiletmc.toiletcore.module.effectonblock.EffectOnBlockModule;
+import net.toiletmc.toiletcore.module.eggrespawn.EggRespawnModule;
 import net.toiletmc.toiletcore.module.hook.HookModule;
 import net.toiletmc.toiletcore.module.lagalert.LagAlertModule;
 import net.toiletmc.toiletcore.module.placeholder.PlaceholderModule;
@@ -85,7 +87,9 @@ public class ModuleManager {
         SHART("shart", ShartModule.class, "排泄"),
         PREMIUM("premium", PremiumModule.class, "正版玩家奖励"),
         EFFECTONBLOCK("effect-on-block", EffectOnBlockModule.class, "玩家区域内效果"),
-        HOOK("hook", HookModule.class, "???");
+        HOOK("hook", HookModule.class, "???"),
+        EGGRESPAWN("egg-respawn", EggRespawnModule.class, "龙蛋重生计划"),
+        ANTIENDERMAN("anti-enderman", AntiEndermanModule.class, "末影人计划生育");
 
         public final String id;
         public final Class<? extends ToiletModule> moduleClass;

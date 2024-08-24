@@ -28,18 +28,9 @@
 
 为了更好的性能，抛弃JavaScript。
 
-- `%toilet_emoji_world%`：玩家名字前面的 emoji
-    - [X] 导弹战争：🗡
-    - [X] 资源世界：⛏
+- `%toilet_emoji_world%`：玩家名字前面的 emoji（仅限资源世界）
 - `%toilet_emoji_tps%`： 服务器负荷的 emoji
-    - [X] TPS>=18：&a🌑
-    - [X] TPS>=15：&6🌑
-    - [X] TPS>=10：&c🌑
-    - [X] TPS<10：&4🌑
 - `%toilet_emoji_worldtime%`：世界时间的 emoji
-    - [X] 0~12000 ticks：&6☀
-    - [X] 其它：&e🌚
-- ~~`%toilet_tab_footer%`：TAB 列表的页脚文字~~【该功能已被TAB插件替代。】
 
 ## Premium
 
@@ -57,12 +48,12 @@
 - [X] [DebugStickSupport](https://github.com/ToiletMC/plugin-DebugStickSupport)
 - [ ] [ToiletPAPI](https://github.com/ToiletMC/plugin-ToiletPAPI)
 - [X] [AuthmeEncryptionConverter](https://github.com/ToiletMC/plugin-AuthmeEncryptionConverter)
-- [ ] [LagManager](https://github.com/ToiletMC/plugin-LagManager)
+- [X] [LagManager](https://github.com/ToiletMC/plugin-LagManager)
 - [X] [Shart](https://github.com/ToiletMC/plugin-Shart)
 - [X] [EffectOnBlock](https://github.com/ToiletMC/plugin-EffectOnBlock)
 - [ ] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)
 - [X] [ZBYZ](https://github.com/ToiletMC/plugin-ZBYZ)
 - [ ] [CDK](https://github.com/ToiletMC/plugin-CDK)
 - [ ] [SignItem](https://github.com/ToiletMC/plugin-SignItem)
-- [ ] [EggRespawn](https://github.com/XXY233/EggRespawn)
-- [ ] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)
+- [X] [EggRespawn](https://github.com/XXY233/EggRespawn)
+- [X] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)

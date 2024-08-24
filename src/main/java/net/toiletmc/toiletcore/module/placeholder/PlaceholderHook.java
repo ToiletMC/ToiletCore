@@ -3,18 +3,18 @@ package net.toiletmc.toiletcore.module.placeholder;
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import me.lucko.spark.api.Spark;
 import me.lucko.spark.api.statistic.StatisticWindow;
+import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
 import me.lucko.spark.api.statistic.types.DoubleStatistic;
+import me.lucko.spark.api.statistic.types.GenericStatistic;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PlaceholderHook extends PlaceholderExpansion {
-    private final boolean missileWarsMode;
     private final Spark spark;
 
     public PlaceholderHook(PlaceholderModule module) {
-        missileWarsMode = module.getConfig().getBoolean("emoji-setting.world.missile-wars", false);
         spark = module.getPlugin().getSpark();
     }
 
@@ -29,29 +29,21 @@ public class PlaceholderHook extends PlaceholderExpansion {
         String arg1 = split[0];
         String arg2 = split[1];
 
-        /*
-            资源世界：⛏
-            钻石剑：🗡
-            TPS小圆：🌑
-            世界时间：☀（白天）🌚（黑夜）
-        */
-        switch (arg1) {
-            case "emoji" -> {
-                switch (arg2) {
-                    case "world" -> {
-                        return getWorldEmoji(player);
-                    }
-                    case "tps" -> {
-                        return getTPSEmoji();
-                    }
-                    case "worldtime" -> {
-                        return getWorldtimeEmoji(player);
-                    }
+        if (arg1.equals("emoji")) {
+            switch (arg2) {
+                case "world" -> {
+                    return getEmojiWorld(player);
+                }
+                case "tps" -> {
+                    return getEmojiTPS();
+                }
+                case "worldtime" -> {
+                    return getEmojiWorldtime(player);
                 }
             }
         }
 
-        return "";
+        return null;
     }
 
     @Override
@@ -69,42 +61,46 @@ public class PlaceholderHook extends PlaceholderExpansion {
         return "2.0.0";
     }
 
-    @SuppressWarnings("deprecation")
-    private @NotNull String getNameColor(Player player) {
-        return player.getDisplayName().startsWith("§") && !player.getDisplayName().startsWith("§7")
-                ? player.getDisplayName().substring(0, 2) : "";
+    @Override
+    public boolean persist() {
+        return true;
     }
 
-    private String getTPSEmoji() {
+    private String getEmojiTPS() {
         DoubleStatistic<StatisticWindow.TicksPerSecond> tps = spark.tps();
         double tpsLast10Secs = 0;
         if (tps != null) {
             tpsLast10Secs = tps.poll(StatisticWindow.TicksPerSecond.SECONDS_10);
         }
+
         if (tpsLast10Secs >= 18) {
-            return "§a\uD83C\uDF11";
+            GenericStatistic<DoubleAverageInfo, StatisticWindow.MillisPerTick> mspt = spark.mspt();
+            double msptLast1Min = 0;
+            if (mspt != null) {
+                msptLast1Min = mspt.poll(StatisticWindow.MillisPerTick.SECONDS_10).percentile95th();
+            }
+            if (msptLast1Min <= 90) {
+                return "§a\uD83C\uDF11";
+            } else {
+                return "§a\uD83C\uDF11§f［伪］";
+            }
         } else if (tpsLast10Secs >= 15) {
             return "§6\uD83C\uDF11";
         } else if (tpsLast10Secs >= 10) {
             return "§c\uD83C\uDF11";
-        } else {
+        } else if (tpsLast10Secs >= 5) {
             return "§4\uD83C\uDF11";
-        }
-    }
-
-    private String getWorldEmoji(Player player) {
-        World world = player.getWorld();
-
-        if (missileWarsMode) {
-            return "§7️\uD83D\uDDE1" + getNameColor(player);
-        } else if (world.getName().equals("resource_world")) {
-            return "§7⛏§r";
         } else {
-            return "";
+            return "§4\uD83C\uDF11§f［爆］";
         }
     }
 
-    private String getWorldtimeEmoji(Player player) {
+    private String getEmojiWorld(Player player) {
+        World world = player.getWorld();
+        return world.getName().equals("resource_world") ? "§7⛏§r" : "";
+    }
+
+    private String getEmojiWorldtime(Player player) {
         long gameTime = player.getWorld().getTime() % 24000;
         if (gameTime >= 0 && gameTime <= 12000) {
             return "§6☀";

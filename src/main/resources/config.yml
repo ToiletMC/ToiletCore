@@ -6,3 +6,5 @@ module:
   premium: false
   shart: true
   hook: false
+  egg-respawn: false
+  anti-enderman: true

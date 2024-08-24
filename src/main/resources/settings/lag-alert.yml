@@ -1,4 +1,5 @@
 max-mspt: 80
+give-potato: true
 lag-broadcast: |-
   <hover:show_text:'这是实时消息，我们有一个性能监测程序。当服务器运行缓慢时，它会自动发出警告！'>
   <color:#ab1c15><b>[WARNING]服务器当前已过载！此刻MSPT：%mspt%</b></color>
