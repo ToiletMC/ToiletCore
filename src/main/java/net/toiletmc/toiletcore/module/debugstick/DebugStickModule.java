@@ -49,21 +49,20 @@ public class DebugStickModule extends ToiletModule implements Listener {
             return;
         }
 
-        if (player.getInventory().getItemInMainHand().getType() != Material.DEBUG_STICK &&
-                player.getInventory().getItemInOffHand().getType() != Material.DEBUG_STICK
-        ) {
+        ItemStack item = event.getItem();
+        if (item == null || item.getType() != Material.DEBUG_STICK) {
+            return;
+        }
+
+        if (!player.hasPermission("minecraft.debugstick.always")) {
+            player.sendActionBar(Component.text("抱歉，只有建筑师可以使用调试棒。").color(NamedTextColor.RED));
+            event.setUseItemInHand(Event.Result.DENY);
             return;
         }
 
         //  调试棒会触发BlockPlaceEvent，所以就算不通知，对应的保护插件也会通知。
         if (event.useItemInHand() == Event.Result.DENY) {
-            player.sendMessage(Component.text("你不能在这里使用调试棒！").color(NamedTextColor.RED));
-            return;
-        }
-
-        if (!player.hasPermission("minecraft.debugstick.always")) {
-            player.sendMessage("抱歉，只有建筑师可以使用调试棒。");
-            event.setUseItemInHand(Event.Result.DENY);
+            player.sendActionBar(Component.text("你不能在这里使用调试棒！").color(NamedTextColor.RED));
             return;
         }
 
@@ -73,7 +72,8 @@ public class DebugStickModule extends ToiletModule implements Listener {
                     clickedblock.getBlockData() instanceof Ageable ||
                     clickedblock.getBlockData() instanceof Beehive) {
                 event.setUseItemInHand(Event.Result.DENY);
-                player.sendMessage("你不能对这种类型的方块使用调试棒！");
+                player.sendActionBar(Component.translatable(clickedblock)
+                        .append(Component.text("已被列入调试棒黑名单！")).color(NamedTextColor.RED));
             }
         }
     }

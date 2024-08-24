@@ -17,5 +17,6 @@ public class AuthmeModule extends ToiletModule {
     @Override
     public void onDisable() {
         HandlerList.unregisterAll(authmeHook);
+        authmeHook.reloadAuthme();
     }
 }

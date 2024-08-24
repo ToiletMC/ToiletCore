@@ -2,7 +2,6 @@ package net.toiletmc.toiletcore.module.shart;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.toiletmc.toiletcore.module.shart.task.ScatterShartTask;
 import net.toiletmc.toiletcore.api.module.ToiletModule;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -37,9 +36,9 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
+                             @NotNull String[] args) {
         if (args.length == 0 && sender instanceof Player player) {
-            new ScatterShartTask(this, player);
+            new ScatterShartTask(this, player, false);
             return true;
         }
 
@@ -50,9 +49,9 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
                 return true;
             }
             if (args.length == 1) {
-                new ScatterShartTask(this, player);
+                new ScatterShartTask(this, player, false);
             } else {
-                // 彩虹💩
+                new ScatterShartTask(this, player, true);
             }
         } else {
             sender.sendMessage(Component.text("未知的指令").color(NamedTextColor.RED));
@@ -63,7 +62,7 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
-            @NotNull String label, @NotNull String[] args) {
+                                                @NotNull String label, @NotNull String[] args) {
         if (!sender.hasPermission("shart.others")) {
             return null;
         }
