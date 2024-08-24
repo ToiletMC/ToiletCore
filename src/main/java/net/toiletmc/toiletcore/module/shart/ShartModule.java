@@ -42,7 +42,7 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
             return true;
         }
 
-        if (sender.hasPermission("shart.others") && args.length >= 1) {
+        if (sender.hasPermission("toiletcore.shart.others") && args.length >= 1) {
             Player player = Bukkit.getPlayer(args[0]);
             if (player == null) {
                 sender.sendMessage(Component.text(args[0] + " 当前并不在线！").color(NamedTextColor.RED));
@@ -63,7 +63,7 @@ public class ShartModule extends ToiletModule implements CommandExecutor, Listen
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                 @NotNull String label, @NotNull String[] args) {
-        if (!sender.hasPermission("shart.others")) {
+        if (!sender.hasPermission("toiletcore.shart.others")) {
             return null;
         }
 

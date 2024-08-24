@@ -56,4 +56,3 @@
 - [ ] [CDK](https://github.com/ToiletMC/plugin-CDK)
 - [ ] [SignItem](https://github.com/ToiletMC/plugin-SignItem)
 - [X] [EggRespawn](https://github.com/XXY233/EggRespawn)
-- [X] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)

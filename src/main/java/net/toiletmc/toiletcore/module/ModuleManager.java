@@ -7,6 +7,7 @@ import net.toiletmc.toiletcore.api.module.Module;
 import net.toiletmc.toiletcore.api.module.ToiletModule;
 import net.toiletmc.toiletcore.module.antienderman.AntiEndermanModule;
 import net.toiletmc.toiletcore.module.authme.AuthmeModule;
+import net.toiletmc.toiletcore.module.cdk.CDK;
 import net.toiletmc.toiletcore.module.debugstick.DebugStickModule;
 import net.toiletmc.toiletcore.module.effectonblock.EffectOnBlockModule;
 import net.toiletmc.toiletcore.module.eggrespawn.EggRespawnModule;
@@ -23,7 +24,7 @@ import java.util.List;
 
 public class ModuleManager {
     private final ToiletCore plugin;
-    private final List<Module> enabledModules = new ArrayList<>();
+    private final List<ToiletModule> enabledModules = new ArrayList<>();
 
     public ModuleManager(ToiletCore plugin) {
         this.plugin = plugin;
@@ -47,9 +48,9 @@ public class ModuleManager {
                 allEnabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.TRUE));
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException
                      | IllegalAccessException e) {
-                plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！");
                 allDisabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.FALSE));
-                throw new RuntimeException(e);
+                plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！");
+                plugin.getLogger().severe(e.getMessage());
             }
         }
 
@@ -69,8 +70,8 @@ public class ModuleManager {
 
     public void disableAllModules() {
         plugin.getLogger().info("正在禁用所有模块……");
-        enabledModules.forEach(net.toiletmc.toiletcore.api.module.Module::saveConfig);
-        enabledModules.forEach(net.toiletmc.toiletcore.api.module.Module::onDisable);
+        enabledModules.forEach(ToiletModule::onDisable);
+        enabledModules.forEach(ToiletModule::disabled);
         enabledModules.clear();
     }
 
@@ -89,7 +90,8 @@ public class ModuleManager {
         EFFECTONBLOCK("effect-on-block", EffectOnBlockModule.class, "玩家区域内效果"),
         HOOK("hook", HookModule.class, "???"),
         EGGRESPAWN("egg-respawn", EggRespawnModule.class, "龙蛋重生计划"),
-        ANTIENDERMAN("anti-enderman", AntiEndermanModule.class, "末影人计划生育");
+        ANTIENDERMAN("anti-enderman", AntiEndermanModule.class, "末影人计划生育"),
+        CDK("cdk", CDK.class, "CDK");
 
         public final String id;
         public final Class<? extends ToiletModule> moduleClass;

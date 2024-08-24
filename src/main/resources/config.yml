@@ -8,3 +8,4 @@ module:
   hook: false
   egg-respawn: false
   anti-enderman: true
+  cdk: false

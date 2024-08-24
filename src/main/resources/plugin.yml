@@ -2,7 +2,7 @@ name: ToiletCore
 version: "${version}"
 main: net.toiletmc.toiletcore.ToiletCore
 api-version: "1.19"
-authors: [TheLittle_Yang, zty012]
+authors: [ TheLittle_Yang, zty012 ]
 
 softdepend:
   - "spark"
@@ -14,22 +14,24 @@ website: https://toiletmc.net
 
 commands:
   toiletcore:
-    aliases: [tc]
+    aliases: [ tc ]
     permission: toiletcore.use
   shart:
-    aliases: [shit, poop, poo]
-    permission: shart.use
+    aliases: [ shit, poop, poo ]
+    permission: toiletcore.shart.use
   hook:
-    permission: hook.use
+    permission: toiletcore.hook.use
+  cdk:
+    permission: toiletcore.cdk.use
 
 permissions:
   toiletcore.use:
     default: op
   toiletcore.admin:
     default: op
-  shart.use:
+  toiletcore.shart.use:
     default: true
-  shart.others:
+  toiletcore.shart.others:
     default: op
-  hook.use:
+  toiletcore.hook.use:
     default: true

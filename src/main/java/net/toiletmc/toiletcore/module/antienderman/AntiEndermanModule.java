@@ -12,12 +12,12 @@ import org.bukkit.event.entity.EntityChangeBlockEvent;
 
 public class AntiEndermanModule extends ToiletModule implements Listener {
     @Override
-    public void onDisable() {
+    public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, plugin);
     }
 
     @Override
-    public void onEnable() {
+    public void onDisable() {
         HandlerList.unregisterAll(this);
     }
 
