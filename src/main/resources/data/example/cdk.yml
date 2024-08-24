@@ -1,0 +1,39 @@
+toiletplus-360d:
+  commands:
+    - "lp user {player} parent addtemp toilet1 360d accumulate"
+  keys:
+    - "uniqueKeyA1"
+    - "uniqueKeyB2"
+    - "uniqueKeyC3"
+
+toiletplus-90d:
+  commands:
+    - "lp user {player} parent addtemp toilet1 90d accumulate"
+  keys:
+    - "uniqueKeyD4"
+    - "uniqueKeyE5"
+    - "uniqueKeyF6"
+
+toiletplus-30d:
+  commands:
+    - "lp user {player} parent addtemp toilet1 30d accumulate"
+  keys:
+    - "uniqueKeyG7"
+    - "uniqueKeyH8"
+    - "uniqueKeyI9"
+
+toiletplus-7d:
+  commands:
+    - "lp user {player} parent addtemp toilet1 7d accumulate"
+  keys:
+    - "uniqueKeyJ10"
+    - "uniqueKeyK11"
+    - "uniqueKeyL12"
+
+toiletplus-3d:
+  commands:
+    - "lp user {player} parent addtemp toilet1 3d accumulate"
+  keys:
+    - "uniqueKeyM13"
+    - "uniqueKeyN14"
+    - "uniqueKeyO15"

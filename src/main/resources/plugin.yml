@@ -35,3 +35,7 @@ permissions:
     default: op
   toiletcore.hook.use:
     default: true
+  toiletcore.cdk.use:
+    default: true
+  toiletcore.cdk.admin:
+    default: op
