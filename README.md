@@ -46,12 +46,12 @@
 ## 代办列表
 
 - [X] [DebugStickSupport](https://github.com/ToiletMC/plugin-DebugStickSupport)
-- [ ] [ToiletPAPI](https://github.com/ToiletMC/plugin-ToiletPAPI)
+- [X] [ToiletPAPI](https://github.com/ToiletMC/plugin-ToiletPAPI)
 - [X] [AuthmeEncryptionConverter](https://github.com/ToiletMC/plugin-AuthmeEncryptionConverter)
 - [X] [LagManager](https://github.com/ToiletMC/plugin-LagManager)
 - [X] [Shart](https://github.com/ToiletMC/plugin-Shart)
 - [X] [EffectOnBlock](https://github.com/ToiletMC/plugin-EffectOnBlock)
-- [ ] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)
+- [X] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)
 - [X] [ZBYZ](https://github.com/ToiletMC/plugin-ZBYZ)
 - [ ] [CDK](https://github.com/ToiletMC/plugin-CDK)
 - [ ] [SignItem](https://github.com/ToiletMC/plugin-SignItem)
