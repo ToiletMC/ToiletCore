@@ -3,6 +3,7 @@ package net.toiletmc.toiletcore.api.module;
 import lombok.Getter;
 import net.toiletmc.toiletcore.ToiletCore;
 import net.toiletmc.toiletcore.module.ModuleManager;
+
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -83,6 +84,7 @@ public abstract class ToiletModule implements Module {
         }
 
         config = YamlConfiguration.loadConfiguration(configFile);
+        getLogger().info(config.toString());
     }
 
     @Override

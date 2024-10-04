@@ -26,7 +26,7 @@
 
 ## Placeholder
 
-为了更好的性能，抛弃JavaScript。
+为了更好的性能，抛弃 JavaScript。
 
 - `%toilet_emoji_world%`：玩家名字前面的 emoji（仅限资源世界）
 - `%toilet_emoji_tps%`： 服务器负荷的 emoji
@@ -34,7 +34,7 @@
 
 ## Premium
 
-自动给予正版奖励。检测玩家的UUID类型是否为v4，如果是离线玩家UUID类型为v3。该方法非常安全且不需要发出任何网络请求。
+自动给予正版奖励。检测玩家的 UUID 类型是否为 v4，如果是离线玩家 UUID 类型为 v3。该方法非常安全且不需要发出任何网络请求。
 
 ## Shart
 
@@ -45,14 +45,18 @@
 
 ## 代办列表
 
-- [X] [DebugStickSupport](https://github.com/ToiletMC/plugin-DebugStickSupport)
-- [X] [ToiletPAPI](https://github.com/ToiletMC/plugin-ToiletPAPI)
-- [X] [AuthmeEncryptionConverter](https://github.com/ToiletMC/plugin-AuthmeEncryptionConverter)
-- [X] [LagManager](https://github.com/ToiletMC/plugin-LagManager)
-- [X] [Shart](https://github.com/ToiletMC/plugin-Shart)
-- [X] [EffectOnBlock](https://github.com/ToiletMC/plugin-EffectOnBlock)
-- [X] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)
-- [X] [ZBYZ](https://github.com/ToiletMC/plugin-ZBYZ)
+- [x] [DebugStickSupport](https://github.com/ToiletMC/plugin-DebugStickSupport)
+- [x] [ToiletPAPI](https://github.com/ToiletMC/plugin-ToiletPAPI)
+- [x] [AuthmeEncryptionConverter](https://github.com/ToiletMC/plugin-AuthmeEncryptionConverter)
+- [x] [LagManager](https://github.com/ToiletMC/plugin-LagManager)
+- [x] [Shart](https://github.com/ToiletMC/plugin-Shart)
+- [x] [EffectOnBlock](https://github.com/ToiletMC/plugin-EffectOnBlock)
+- [x] [AntiEndermanMushroom](https://github.com/ToiletMC/plugin-AntiEndermanMushroom)
+- [x] [ZBYZ](https://github.com/ToiletMC/plugin-ZBYZ)
 - [ ] [CDK](https://github.com/ToiletMC/plugin-CDK)
 - [ ] [SignItem](https://github.com/ToiletMC/plugin-SignItem)
-- [X] [EggRespawn](https://github.com/XXY233/EggRespawn)
+- [x] [EggRespawn](https://github.com/XXY233/EggRespawn)
+
+## Known Issues
+
+- [ ] Hook 无法读取配置文件

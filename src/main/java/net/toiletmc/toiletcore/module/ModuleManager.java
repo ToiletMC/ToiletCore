@@ -3,7 +3,6 @@ package net.toiletmc.toiletcore.module;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.api.module.Module;
 import net.toiletmc.toiletcore.api.module.ToiletModule;
 import net.toiletmc.toiletcore.module.antienderman.AntiEndermanModule;
 import net.toiletmc.toiletcore.module.authme.AuthmeModule;
@@ -47,7 +46,7 @@ public class ModuleManager {
                 enabledModules.add(moduleInstance);
                 allEnabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.TRUE));
             } catch (NoSuchMethodException | InvocationTargetException | InstantiationException
-                     | IllegalAccessException e) {
+                    | IllegalAccessException e) {
                 allDisabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.FALSE));
                 plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！");
                 plugin.getLogger().severe(e.getMessage());
