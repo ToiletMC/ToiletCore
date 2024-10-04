@@ -5,9 +5,13 @@ import me.lucko.spark.api.Spark;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.toiletmc.toiletcore.module.ModuleManager;
+import net.toiletmc.toiletcore.module.hook.Hook;
+import net.toiletmc.toiletcore.module.hook.HookGroup;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +25,12 @@ public final class ToiletCore extends JavaPlugin {
     @Getter
     private Spark spark;
     private ModuleManager moduleManager;
+
+    @Override
+    public void onLoad() {
+        ConfigurationSerialization.registerClass(Hook.class);
+        ConfigurationSerialization.registerClass(HookGroup.class);
+    }
 
     @Override
     public void onEnable() {

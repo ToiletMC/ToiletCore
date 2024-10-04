@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
 import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 @Getter
 public abstract class ToiletModule implements Module {
@@ -55,7 +54,20 @@ public abstract class ToiletModule implements Module {
     public void saveConfig() {
         if (config != null) {
             try {
-                config.save(new File(plugin.getDataFolder(), "settings/" + moduleEnum.id + ".yml"));
+                // config.save(new File(plugin.getDataFolder(), "settings/" + moduleEnum.id +
+                // ".yml"));
+                // 1. 保存配置为字符串
+                var configStr = config.saveToString();
+                // 2. 替换字符串中的"!!"为"==: "
+                configStr = configStr.replaceAll("!!", "==: ");
+                // 3. 保存字符串为文件
+                File configFile = new File(plugin.getDataFolder(), "settings/" + moduleEnum.id + ".yml");
+                if (!configFile.exists()) {
+                    configFile.createNewFile();
+                }
+                var writer = new java.io.BufferedWriter(new java.io.FileWriter(configFile));
+                writer.write(configStr);
+                writer.close();
             } catch (Exception e) {
                 plugin.getLogger().warning("模块 " + moduleEnum.id + " 保存配置文件时出错！");
                 plugin.getLogger().warning(e.getMessage());
@@ -128,7 +140,8 @@ public abstract class ToiletModule implements Module {
             }
 
             File logFile = new File(plugin.getDataFolder(), "logs/" + moduleEnum.id + ".log");
-            if (!logFile.exists()) logFile.createNewFile();
+            if (!logFile.exists())
+                logFile.createNewFile();
 
             this.logFileHandler = new FileHandler(logFile.getAbsolutePath(), true);
             Formatter formatter = new LogFormatter();
