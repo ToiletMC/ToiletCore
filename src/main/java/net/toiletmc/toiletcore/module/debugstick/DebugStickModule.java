@@ -2,7 +2,7 @@ package net.toiletmc.toiletcore.module.debugstick;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import net.toiletmc.toiletcore.utils.MaterialUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -23,7 +23,7 @@ import org.bukkit.inventory.ShapedRecipe;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DebugStickModule extends ToiletModule implements Listener {
+public class DebugStickModule extends SimpleModule implements Listener {
     private final List<Material> blocklistBlocks = new ArrayList<>();
 
     @Override

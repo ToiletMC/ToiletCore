@@ -1,8 +1,8 @@
 package net.toiletmc.toiletcore.module.placeholder;
 
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 
-public class PlaceholderModule extends ToiletModule {
+public class PlaceholderModule extends SimpleModule {
     private PlaceholderHook placeholderHook;
 
     @Override

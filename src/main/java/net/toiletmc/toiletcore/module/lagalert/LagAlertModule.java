@@ -1,8 +1,8 @@
 package net.toiletmc.toiletcore.module.lagalert;
 
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 
-public class LagAlertModule extends ToiletModule {
+public class LagAlertModule extends SimpleModule {
     private MSPTCheckTask checkTask;
 
     @Override

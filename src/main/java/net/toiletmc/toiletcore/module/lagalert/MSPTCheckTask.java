@@ -6,6 +6,7 @@ import me.lucko.spark.api.statistic.types.GenericStatistic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.toiletmc.toiletcore.ToiletCore;
 import net.toiletmc.toiletcore.utils.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -36,7 +37,7 @@ public class MSPTCheckTask extends BukkitRunnable {
             return;
         }
 
-        if (getMspt() >= maxMSPT) {
+        if (ToiletCore.getInstance().getLast1MinMSPT() >= maxMSPT) {
             broadcastMessage();
             if (givePatato) givePotato();
             broTimes++;
@@ -44,15 +45,9 @@ public class MSPTCheckTask extends BukkitRunnable {
     }
 
 
-    private double getMspt() {
-        GenericStatistic<DoubleAverageInfo, StatisticWindow.MillisPerTick> msptInfo = module.getPlugin().getSpark().mspt();
-        DoubleAverageInfo msptLastMin = msptInfo.poll(StatisticWindow.MillisPerTick.MINUTES_1);
-        return msptLastMin.percentile95th();
-    }
-
     private void broadcastMessage() {
         String willSend = message.replaceAll(
-                "%mspt%", String.valueOf((int) getMspt()));
+                "%mspt%", String.valueOf((int) ToiletCore.getInstance().getLast1MinMSPT()));
         Bukkit.getServer().sendMessage(MiniMessage.miniMessage().deserialize(willSend));
     }
 

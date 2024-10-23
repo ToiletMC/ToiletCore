@@ -13,9 +13,9 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 
-public class HookModule extends ToiletModule implements CommandExecutor, TabCompleter {
+public class HookModule extends SimpleModule implements CommandExecutor, TabCompleter {
     @Override
     public void onEnable() {
         plugin.getCommand("hook").setExecutor(this);

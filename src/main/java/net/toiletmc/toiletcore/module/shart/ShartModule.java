@@ -2,7 +2,7 @@ package net.toiletmc.toiletcore.module.shart;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -19,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class ShartModule extends ToiletModule implements CommandExecutor, Listener, TabCompleter {
+public class ShartModule extends SimpleModule implements CommandExecutor, Listener, TabCompleter {
     @Override
     public void onEnable() {
         plugin.getServer().getPluginManager().registerEvents(this, plugin);

@@ -16,7 +16,7 @@ import java.util.logging.Formatter;
 import java.util.logging.Logger;
 
 @Getter
-public abstract class ToiletModule implements Module {
+public abstract class SimpleModule implements Module {
     protected ToiletCore plugin;
     protected ModuleManager.ModuleEnum moduleEnum;
     protected FileConfiguration config = null;

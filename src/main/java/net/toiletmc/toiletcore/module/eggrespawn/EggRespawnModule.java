@@ -1,6 +1,6 @@
 package net.toiletmc.toiletcore.module.eggrespawn;
 
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -17,7 +17,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
-public class EggRespawnModule extends ToiletModule implements Listener {
+public class EggRespawnModule extends SimpleModule implements Listener {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, plugin);

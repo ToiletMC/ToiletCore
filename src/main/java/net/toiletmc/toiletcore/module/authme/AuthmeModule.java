@@ -1,10 +1,10 @@
 package net.toiletmc.toiletcore.module.authme;
 
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 
-public class AuthmeModule extends ToiletModule {
+public class AuthmeModule extends SimpleModule {
     private AuthmeHook authmeHook;
 
     @Override

@@ -1,6 +1,6 @@
 package net.toiletmc.toiletcore.module.premium;
 
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
-public class PremiumModule extends ToiletModule implements Listener {
+public class PremiumModule extends SimpleModule implements Listener {
     private final List<String> commands = new ArrayList<>();
 
     @Override

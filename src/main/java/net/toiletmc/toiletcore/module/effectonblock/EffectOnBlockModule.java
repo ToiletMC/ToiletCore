@@ -1,14 +1,14 @@
 package net.toiletmc.toiletcore.module.effectonblock;
 
 import lombok.Getter;
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.scheduler.BukkitTask;
 
 import java.util.List;
 
 @Getter
-public class EffectOnBlockModule extends ToiletModule {
+public class EffectOnBlockModule extends SimpleModule {
     List<EOBRegion> eobRegions;
     BukkitTask bukkitTask;
 

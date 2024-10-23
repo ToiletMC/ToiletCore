@@ -6,18 +6,13 @@ import me.lucko.spark.api.statistic.StatisticWindow;
 import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
 import me.lucko.spark.api.statistic.types.DoubleStatistic;
 import me.lucko.spark.api.statistic.types.GenericStatistic;
+import net.toiletmc.toiletcore.ToiletCore;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class PlaceholderHook extends PlaceholderExpansion {
-    private final Spark spark;
-
-    public PlaceholderHook(PlaceholderModule module) {
-        spark = module.getPlugin().getSpark();
-    }
-
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
@@ -67,18 +62,10 @@ public class PlaceholderHook extends PlaceholderExpansion {
     }
 
     private String getEmojiTPS() {
-        DoubleStatistic<StatisticWindow.TicksPerSecond> tps = spark.tps();
-        double tpsLast10Secs = 0;
-        if (tps != null) {
-            tpsLast10Secs = tps.poll(StatisticWindow.TicksPerSecond.SECONDS_10);
-        }
+        double tpsLast10Secs = ToiletCore.getInstance().getLast10SecsTPS();
+        double msptLast1Min = ToiletCore.getInstance().getLast10SecsMSPT();
 
         if (tpsLast10Secs >= 18) {
-            GenericStatistic<DoubleAverageInfo, StatisticWindow.MillisPerTick> mspt = spark.mspt();
-            double msptLast1Min = 0;
-            if (mspt != null) {
-                msptLast1Min = mspt.poll(StatisticWindow.MillisPerTick.SECONDS_10).percentile95th();
-            }
             if (msptLast1Min <= 90) {
                 return "§a\uD83C\uDF11";
             } else {

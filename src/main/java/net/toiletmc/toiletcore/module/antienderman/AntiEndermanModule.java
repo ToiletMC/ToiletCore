@@ -1,6 +1,6 @@
 package net.toiletmc.toiletcore.module.antienderman;
 
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Enderman;
@@ -10,7 +10,7 @@ import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 
-public class AntiEndermanModule extends ToiletModule implements Listener {
+public class AntiEndermanModule extends SimpleModule implements Listener {
     @Override
     public void onEnable() {
         Bukkit.getPluginManager().registerEvents(this, plugin);

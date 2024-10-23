@@ -3,10 +3,10 @@ package net.toiletmc.toiletcore.module;
 import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.toiletmc.toiletcore.ToiletCore;
-import net.toiletmc.toiletcore.api.module.ToiletModule;
+import net.toiletmc.toiletcore.api.module.SimpleModule;
 import net.toiletmc.toiletcore.module.antienderman.AntiEndermanModule;
 import net.toiletmc.toiletcore.module.authme.AuthmeModule;
-import net.toiletmc.toiletcore.module.cdk.CDK;
+import net.toiletmc.toiletcore.module.cdk.CDKModule;
 import net.toiletmc.toiletcore.module.debugstick.DebugStickModule;
 import net.toiletmc.toiletcore.module.effectonblock.EffectOnBlockModule;
 import net.toiletmc.toiletcore.module.eggrespawn.EggRespawnModule;
@@ -17,13 +17,12 @@ import net.toiletmc.toiletcore.module.premium.PremiumModule;
 import net.toiletmc.toiletcore.module.shart.ShartModule;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ModuleManager {
     private final ToiletCore plugin;
-    private final List<ToiletModule> enabledModules = new ArrayList<>();
+    private final List<SimpleModule> enabledModules = new ArrayList<>();
 
     public ModuleManager(ToiletCore plugin) {
         this.plugin = plugin;
@@ -40,16 +39,15 @@ public class ModuleManager {
             }
 
             try {
-                ToiletModule moduleInstance = moduleEnum.moduleClass.getDeclaredConstructor().newInstance();
+                SimpleModule moduleInstance = moduleEnum.moduleClass.getDeclaredConstructor().newInstance();
                 moduleInstance.init(moduleEnum);
                 moduleInstance.onEnable();
                 enabledModules.add(moduleInstance);
                 allEnabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.TRUE));
-            } catch (NoSuchMethodException | InvocationTargetException | InstantiationException
-                    | IllegalAccessException e) {
+            } catch (Exception e) {
                 allDisabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.FALSE));
-                plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！");
-                plugin.getLogger().severe(e.getMessage());
+                plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！" );
+                e.printStackTrace();
             }
         }
 
@@ -69,14 +67,22 @@ public class ModuleManager {
 
     public void disableAllModules() {
         plugin.getLogger().info("正在禁用所有模块……");
-        enabledModules.forEach(ToiletModule::onDisable);
-        enabledModules.forEach(ToiletModule::disabled);
+        enabledModules.forEach(SimpleModule::onDisable);
+        enabledModules.forEach(SimpleModule::disabled);
         enabledModules.clear();
     }
 
     private boolean isEnableInConfig(ModuleEnum moduleEnum) {
         FileConfiguration config = plugin.getConfig();
         return config.getBoolean("module." + moduleEnum.id, false);
+    }
+
+    public <T extends SimpleModule> T getModuleInstance(Class<T> moduleClass) {
+        return enabledModules.stream()
+                .filter(moduleClass::isInstance)
+                .findFirst()
+                .map(moduleClass::cast) // 安全类型转换
+                .orElse(null);
     }
 
     public enum ModuleEnum {
@@ -90,13 +96,13 @@ public class ModuleManager {
         HOOK("hook", HookModule.class, "???"),
         EGGRESPAWN("egg-respawn", EggRespawnModule.class, "龙蛋重生计划"),
         ANTIENDERMAN("anti-enderman", AntiEndermanModule.class, "末影人计划生育"),
-        CDK("cdk", CDK.class, "CDK");
+        CDK("cdk", CDKModule.class, "CDK");
 
         public final String id;
-        public final Class<? extends ToiletModule> moduleClass;
+        public final Class<? extends SimpleModule> moduleClass;
         public final String description;
 
-        ModuleEnum(String id, Class<? extends ToiletModule> moduleClass, String description) {
+        ModuleEnum(String id, Class<? extends SimpleModule> moduleClass, String description) {
             this.id = id;
             this.moduleClass = moduleClass;
             this.description = description;
