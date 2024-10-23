@@ -7,7 +7,7 @@ public class PlaceholderModule extends SimpleModule {
 
     @Override
     public void onEnable() {
-        placeholderHook = new PlaceholderHook(this);
+        placeholderHook = new PlaceholderHook();
         placeholderHook.register();
     }
 

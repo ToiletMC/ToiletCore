@@ -1,11 +1,6 @@
 package net.toiletmc.toiletcore.module.placeholder;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
-import me.lucko.spark.api.Spark;
-import me.lucko.spark.api.statistic.StatisticWindow;
-import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
-import me.lucko.spark.api.statistic.types.DoubleStatistic;
-import me.lucko.spark.api.statistic.types.GenericStatistic;
 import net.toiletmc.toiletcore.ToiletCore;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

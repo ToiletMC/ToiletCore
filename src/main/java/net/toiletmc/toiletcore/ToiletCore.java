@@ -2,6 +2,7 @@ package net.toiletmc.toiletcore;
 
 import lombok.Getter;
 import me.lucko.spark.api.Spark;
+import me.lucko.spark.api.SparkProvider;
 import me.lucko.spark.api.statistic.StatisticWindow;
 import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
 import me.lucko.spark.api.statistic.types.DoubleStatistic;
@@ -15,8 +16,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
-import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -26,7 +27,7 @@ import java.util.List;
 public final class ToiletCore extends JavaPlugin {
     @Getter
     private static ToiletCore instance;
-    private Spark spark;
+    private Spark spark = null;
     @Getter
     private ModuleManager moduleManager;
 
@@ -40,7 +41,11 @@ public final class ToiletCore extends JavaPlugin {
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
-        initSpark();
+
+        // Paper 的 spark 不知道在时候加载，暂时先这样。
+        // https://github.com/PaperMC/Paper/issues/11416
+        new SparkInitTask().runTaskTimer(this, 20L, 20L);
+
         initModuleManager();
     }
 
@@ -73,7 +78,7 @@ public final class ToiletCore extends JavaPlugin {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                 @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) {
-            return List.of("reload");
+            return List.of("reload", "debug");
         }
         return null;
     }
@@ -84,13 +89,22 @@ public final class ToiletCore extends JavaPlugin {
         moduleManager.enableAllModules();
     }
 
+    @Deprecated
+    private class SparkInitTask extends BukkitRunnable {
+        @Override
+        public void run() {
+            initSpark();
+            if (spark != null) {
+                this.cancel();
+            }
+        }
+    }
+
     private void initSpark() {
-        RegisteredServiceProvider<Spark> provider = Bukkit.getServicesManager().getRegistration(Spark.class);
-        if (provider != null) {
-            spark = provider.getProvider();
+        try {
+            spark = SparkProvider.get();
             getLogger().info("已挂钩到 Spark");
-        } else {
-            spark = null;
+        } catch (NoClassDefFoundError e) {
             getLogger().severe("Spark 服务异常，请排查错误！");
         }
     }
