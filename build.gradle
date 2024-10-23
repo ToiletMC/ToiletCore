@@ -29,14 +29,14 @@ repositories {
 dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
+    compileOnly "io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT"
     compileOnly "fr.xephi:authme:5.6.0-SNAPSHOT"
     compileOnly 'me.clip:placeholderapi:2.11.6'
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
     compileOnly "me.lucko:helper:5.6.14"
 }
 
-def targetJavaVersion = 17
+def targetJavaVersion = 21
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion

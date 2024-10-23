@@ -106,7 +106,7 @@ public class ScatterShartTask extends BukkitRunnable {
     }
 
     private void spawnParticle(Item smallItem, Color color) {
-        player.getLocation().getWorld().spawnParticle(Particle.REDSTONE,
+        player.getLocation().getWorld().spawnParticle(Particle.DUST,
                 smallItem.getLocation().add(0.0, 0.3, 0.0),
                 1,
                 new Particle.DustOptions(color, 1F)

@@ -29,7 +29,7 @@ public class PlayerUtil {
         HashMap<Integer, ItemStack> map = player.getInventory().addItem(items);
         map.values().forEach(item -> {
             World world = player.getWorld();
-            Item entity = (Item) world.spawnEntity(player.getLocation(), EntityType.DROPPED_ITEM);
+            Item entity = (Item) world.spawnEntity(player.getLocation(), EntityType.ITEM);
             entity.setItemStack(item);
         });
     }
