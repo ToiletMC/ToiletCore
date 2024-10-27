@@ -29,7 +29,6 @@
 
 - minecraft.debugstick
 - minecraft.debugstick.always
--
 
 ### 合成配方
 
@@ -52,4 +51,4 @@
 
 ## 已知问题
 
-- [ ] Hook 无法读取配置文件
+- 暂无

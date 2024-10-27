@@ -12,15 +12,23 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class HookGroup implements ConfigurationSerializable {
-  private String name;
-  private List<String> players;
-  private String command;
+    private String name;
+    private List<String> players;
+    private String command;
 
-  @Override
-  public @NotNull Map<String, Object> serialize() {
-    return Map.of(
-        "name", name,
-        "players", players,
-        "command", command);
-  }
+    @Override
+    public @NotNull Map<String, Object> serialize() {
+        return Map.of(
+                "name", name,
+                "players", players,
+                "command", command);
+    }
+
+    public static HookGroup deserialize(Map<String, Object> map) {
+        List<String> players = (List<String>) map.get("players");
+        String command = (String) map.get("command");
+        String name = (String) map.get("name");
+
+        return new HookGroup(name, players, command);
+    }
 }
