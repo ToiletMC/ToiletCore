@@ -2,7 +2,6 @@ module:
   authme: false
   debug-stick: false
   lag-alert: false
-  placeholder-api: false
   premium: false
   shart: true
   hook: false

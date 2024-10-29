@@ -12,7 +12,6 @@ import net.toiletmc.toiletcore.module.effectonblock.EffectOnBlockModule;
 import net.toiletmc.toiletcore.module.eggrespawn.EggRespawnModule;
 import net.toiletmc.toiletcore.module.hook.HookModule;
 import net.toiletmc.toiletcore.module.lagalert.LagAlertModule;
-import net.toiletmc.toiletcore.module.placeholder.PlaceholderModule;
 import net.toiletmc.toiletcore.module.premium.PremiumModule;
 import net.toiletmc.toiletcore.module.shart.ShartModule;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -87,7 +86,6 @@ public class ModuleManager {
 
     public enum ModuleEnum {
         AUTHME("authme", AuthmeModule.class, "Authme 密码算法支持"),
-        PLACEHOLDER("placeholder-api", PlaceholderModule.class, "PlaceholderAPI 支持"),
         DEBUGSTICK("debug-stick", DebugStickModule.class, "生存模式调试棒"),
         LAGALERT("lag-alert", LagAlertModule.class, "滞后监测程序"),
         SHART("shart", ShartModule.class, "排泄"),

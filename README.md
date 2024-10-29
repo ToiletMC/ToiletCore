@@ -12,7 +12,6 @@
 | EggRespawn    | 在每次末影龙死后都给予龙蛋                                                                                    |
 | Hook          | ？？                                                                                               |
 | LagAlert      | 这是一个滞后提醒器，当检测到服务器滞后时，会通过提醒的方式识图让玩家自觉维护服务器稳定性。插件会在启动时自动开启检测，无需手动配置。通过挂钩 Spark，获取服务器最近一分钟的最大 mspt。 |
-| Placeholder   | 提供一些PAPI占位符                                                                                      |
 | Premium       | 自动给予正版奖励。检测玩家的 UUID 类型是否为 v4，如果是离线玩家 UUID 类型为 v3。该方法非常安全且不需要发出任何网络请求。                            |
 | Shart         | 上厕所                                                                                              |
 
@@ -33,14 +32,6 @@
 ### 合成配方
 
 ![image](https://user-images.githubusercontent.com/77124888/175134422-a4c1c9c8-3ab6-4693-9fec-0f3cfa30e17e.png)
-
-## 模块：Placeholder
-
-### 占位符
-
-- `%toilet_emoji_world%`：玩家名字前面的 emoji（仅限资源世界）
-- `%toilet_emoji_tps%`： 服务器负荷的 emoji
-- `%toilet_emoji_worldtime%`：世界时间的 emoji
 
 ## 模块：Shart
 
