@@ -37,4 +37,8 @@ public class CDKManager {
         cdkInstance.setToDataConfig(module.getData());
         module.saveData();
     }
+
+    public String getCdkId(String key) {
+        return getCDKInstance(key).getId();
+    }
 }

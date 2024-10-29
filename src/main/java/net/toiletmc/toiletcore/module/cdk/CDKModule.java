@@ -34,9 +34,9 @@ public class CDKModule extends SimpleModule implements CommandExecutor {
             String key = args[0];
 
             if (cdkManager.existsKey(key)) {
-                cdkManager.consumeKey(key, player);
+                getLogger().info(player.getName() + "(" + player.getUniqueId() + ")" + "使用了CDK：【" + cdkManager.getCdkId(key) + ";" + key + "】");
                 MsgUtil.sendNormalText(player, "CDK兑换成功！");
-                getLogger().info(player.getName() + "(" + player.getUniqueId() + ")" + "使用了CDK：" + "cdk");
+                cdkManager.consumeKey(key, player);
             } else {
                 MsgUtil.sendRedText(player, "CDK错误，请核对密钥后重试。");
                 getLogger().warning(player.getName() + " 尝试了错误的CDK：" + key);

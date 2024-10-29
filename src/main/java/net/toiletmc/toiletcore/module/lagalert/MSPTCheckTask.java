@@ -1,10 +1,8 @@
 package net.toiletmc.toiletcore.module.lagalert;
 
-import me.lucko.spark.api.statistic.StatisticWindow;
-import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
-import me.lucko.spark.api.statistic.types.GenericStatistic;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.toiletmc.toiletcore.ToiletCore;
 import net.toiletmc.toiletcore.utils.PlayerUtil;
@@ -58,7 +56,9 @@ public class MSPTCheckTask extends BukkitRunnable {
     private ItemStack getPotato() {
         ItemStack itemStack = new ItemStack(Material.BAKED_POTATO);
         ItemMeta meta = itemStack.getItemMeta();
-        meta.displayName(Component.text("服务器尸体").color(NamedTextColor.RED));
+        meta.displayName(Component.text("服务器尸体")
+                .color(NamedTextColor.RED)
+                .decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
         itemStack.setItemMeta(meta);
         return itemStack;
     }

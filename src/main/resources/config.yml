@@ -1,6 +1,7 @@
 module:
   authme: false
   debug-stick: false
+  effect-on-block: false
   lag-alert: false
   premium: false
   shart: true

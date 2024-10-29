@@ -48,10 +48,10 @@ public class ShartModule extends SimpleModule implements CommandExecutor, Listen
                 sender.sendMessage(Component.text(args[0] + " 当前并不在线！").color(NamedTextColor.RED));
                 return true;
             }
-            if (args.length == 1) {
-                new ScatterShartTask(this, player, false);
-            } else {
+            if (args.length > 1 && args[1].equals("rainbow")) {
                 new ScatterShartTask(this, player, true);
+            } else {
+                new ScatterShartTask(this, player, false);
             }
         } else {
             sender.sendMessage(Component.text("未知的指令").color(NamedTextColor.RED));
@@ -75,7 +75,7 @@ public class ShartModule extends SimpleModule implements CommandExecutor, Listen
         }
 
         if (args.length == 2) {
-            return List.of("rainbow");
+            return List.of("normal", "rainbow");
         }
 
         return null;

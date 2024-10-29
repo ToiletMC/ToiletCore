@@ -1,5 +1,6 @@
 package net.toiletmc.toiletcore.module.cdk;
 
+import lombok.Getter;
 import lombok.ToString;
 import net.toiletmc.toiletcore.ToiletCore;
 import org.bukkit.Bukkit;
@@ -13,6 +14,7 @@ import java.util.Set;
 
 @ToString
 public class CDKInstance {
+    @Getter
     private String id;
     private List<String> commands;
     private Set<String> keys;

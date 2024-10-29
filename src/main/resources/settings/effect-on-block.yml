@@ -3,12 +3,29 @@ setting:
 regions:
   hotSpring:
     region:
-      min: "world;-1499;67;-3290"
-      max: "world;-1489;56;-3300"
-    need-permission: "NONE"
-    need-in-water: true
-    remove-harmful-effects: true
-    give-exp-points: 1
-    give-effects:
-      - 'REGENERATION;2;3'
-      - 'WATER_BREATHING;2;3'
+      min: "world;681;133;722"
+      max: "world;714;127;695"
+    requirement:
+      permission: "NONE"
+      must-in-water: true
+    give:
+      exp: 1
+      effects:
+        - 'REGENERATION;2;3'
+        - 'WATER_BREATHING;2;3'
+    options:
+      remove-harmful-effects: true
+  natureSpring:
+    region:
+      min: "world;690;143;693"
+      max: "world;699;172;688"
+    requirement:
+      permission: "NONE"
+      must-in-water: true
+    give:
+      exp: 2
+      effects:
+        - 'REGENERATION;2;3'
+        - 'WATER_BREATHING;2;3'
+    options:
+      remove-harmful-effects: true

@@ -18,4 +18,10 @@ public interface Module {
     void saveData();
 
     Logger getLogger();
+
+    void info(String logInfo);
+
+    void warning(String logWarning);
+
+    void error(String logError);
 }

@@ -38,8 +38,9 @@ public abstract class SimpleModule implements Module {
     }
 
     public void disabled() {
-        saveConfig();
-        saveData();
+        // 默认不存储数据，这样可以从硬盘加载配置文件和数据。
+        // saveConfig();
+        // saveData();
         closeLogger();
     }
 
@@ -84,7 +85,6 @@ public abstract class SimpleModule implements Module {
         }
 
         config = YamlConfiguration.loadConfiguration(configFile);
-        getLogger().info(config.toString());
     }
 
     @Override
@@ -175,5 +175,20 @@ public abstract class SimpleModule implements Module {
         }
 
         return result.toString();
+    }
+
+    @Override
+    public void info(String logInfo) {
+        getLogger().info(logInfo);
+    }
+
+    @Override
+    public void warning(String logWarning) {
+        getLogger().warning(logWarning);
+    }
+
+    @Override
+    public void error(String logError) {
+        getLogger().severe(logError);
     }
 }

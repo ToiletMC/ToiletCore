@@ -14,11 +14,12 @@ public class EffectOnBlockModule extends SimpleModule {
 
     @Override
     public void onEnable() {
+        int taskInterval = getConfig().getInt("setting.task-interval", 2);
+
         ConfigurationSection regions = getConfig().getConfigurationSection("regions");
         eobRegions = regions.getKeys(false).stream()
                 .map(key -> new EOBRegion(regions.getConfigurationSection(key)))
                 .toList();
-        int taskInterval = getConfig().getInt("setting.task-interval", 2);
         bukkitTask = new EOBTask(this).runTaskTimer(plugin, 20L, taskInterval);
     }
 

@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id("io.github.goooler.shadow") version "8.1.8"
 }
 
 group = 'net.toiletmc'
@@ -32,11 +33,18 @@ dependencies {
     compileOnly "io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT"
     compileOnly "fr.xephi:authme:5.6.0-SNAPSHOT"
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
-    compileOnly "me.lucko:helper:5.6.14"
+    implementation "me.lucko:helper:5.6.14"
 
     // PlaceholderAPI 已移至独立插件 ToiletPAPI，方便热加载而无需重启服务器。
     // compileOnly 'me.clip:placeholderapi:2.11.6'
 }
+
+shadowJar {
+    minimize()
+    relocate 'me.lucko.helper', 'net.toiletmc.toiletcore.libs.helper'
+}
+
+
 
 def targetJavaVersion = 21
 java {
