@@ -46,7 +46,7 @@ public class CDKInstance {
     public void consumeKey(String key, Player player) {
         if (!existsKey(key)) {
             CDKModule cdkModule = ToiletCore.getInstance().getModuleManager().getModuleInstance(CDKModule.class);
-            cdkModule.getLogger().warning(player.getName() + " 尝试使用不存在的CDK：" + key);
+            cdkModule.warning(player.getName() + " 尝试使用不存在的CDK：" + key);
         } else {
             executeCommands(player);
             keys.remove(key);

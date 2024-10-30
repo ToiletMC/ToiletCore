@@ -52,11 +52,11 @@ public class EggRespawnModule extends SimpleModule implements Listener {
             } else if (secondHighestBlock.getType().equals(Material.BEDROCK)) {
                 generateChest(highestBlock.getLocation());
             } else {
-                plugin.getLogger().warning("错误，无法在世界重生龙蛋：" + loc.getWorld().getName());
+                plugin.getLogger().warning("无法找到基岩，在世界重生龙蛋：" + loc.getWorld().getName());
                 return;
             }
 
-            plugin.getLogger().info("龙蛋在世界重生：" + loc.getWorld().getName());
+            debug("龙蛋在世界重生：" + loc.getWorld().getName());
         }, 200L);
     }
 

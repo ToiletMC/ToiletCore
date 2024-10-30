@@ -7,6 +7,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.stream.Collectors;
 
 public class MaterialUtil {
@@ -22,8 +23,7 @@ public class MaterialUtil {
             material = Material.valueOf(string.toUpperCase());
             return material;
         } catch (IllegalArgumentException e) {
-            ToiletCore.getInstance().getLogger().warning("解析材质时出现异常：" + string);
-            ToiletCore.getInstance().getLogger().warning(e.getMessage());
+            ToiletCore.getInstance().getLogger().log(Level.WARNING, "解析材质时出现异常：" + string, e);
             return null;
         }
     }

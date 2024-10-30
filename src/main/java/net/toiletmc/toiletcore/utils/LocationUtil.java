@@ -5,6 +5,8 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.logging.Level;
+
 public class LocationUtil {
     /**
      * 从坐标字符串生成坐标，例如 "world;23;53;-23"
@@ -24,8 +26,7 @@ public class LocationUtil {
             );
             return location;
         } catch (Exception e) {
-            ToiletCore.getInstance().getLogger().warning("解析坐标时出现错误：" + string);
-            ToiletCore.getInstance().getLogger().warning(e.getMessage());
+            ToiletCore.getInstance().getLogger().log(Level.WARNING, "解析坐标时出现错误：" + string, e);
             return null;
         }
     }

@@ -13,6 +13,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Getter
@@ -58,8 +59,7 @@ public abstract class SimpleModule implements Module {
             try {
                 config.save(new File(plugin.getDataFolder(), "settings/" + moduleEnum.id + ".yml"));
             } catch (Exception e) {
-                plugin.getLogger().warning("模块 " + moduleEnum.id + " 保存配置文件时出错！");
-                plugin.getLogger().warning(e.getMessage());
+                plugin.getLogger().log(Level.WARNING, "模块 " + moduleEnum.id + " 保存配置文件时出错！", e);
             }
         }
     }
@@ -89,8 +89,7 @@ public abstract class SimpleModule implements Module {
             try {
                 data.save(new File(plugin.getDataFolder(), "data/" + moduleEnum.id + ".yml"));
             } catch (Exception e) {
-                plugin.getLogger().warning("模块 " + moduleEnum.id + " 保存数据文件时出错！");
-                plugin.getLogger().warning(e.getMessage());
+                plugin.getLogger().log(Level.WARNING, "模块 " + moduleEnum.id + " 保存数据文件时出错！", e);
             }
         }
     }
@@ -105,8 +104,7 @@ public abstract class SimpleModule implements Module {
         data = YamlConfiguration.loadConfiguration(dataFile);
     }
 
-    @Override
-    public @NotNull Logger getLogger() {
+    private @NotNull Logger getLogger() {
         if (this.logger == null) {
             loadLogger();
         }
@@ -137,8 +135,7 @@ public abstract class SimpleModule implements Module {
             this.logger.addHandler(this.logFileHandler);
             this.logFileHandler.setFormatter(formatter);
         } catch (IOException e) {
-            plugin.getLogger().warning("模块 " + moduleEnum.id + " 加载日志时出错！");
-            plugin.getLogger().warning(e.getMessage());
+            plugin.getLogger().log(Level.WARNING, "模块 " + moduleEnum.id + " 加载日志时出错！", e);
         }
     }
 
@@ -172,6 +169,11 @@ public abstract class SimpleModule implements Module {
     @Override
     public void warning(String logWarning) {
         getLogger().warning(logWarning);
+    }
+
+    @Override
+    public void exception(String description, Exception exception) {
+        getLogger().log(Level.WARNING, description, exception);
     }
 
     @Override

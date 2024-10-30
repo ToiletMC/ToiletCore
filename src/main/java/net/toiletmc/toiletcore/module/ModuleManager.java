@@ -18,6 +18,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 
 public class ModuleManager {
     private final ToiletCore plugin;
@@ -45,8 +46,7 @@ public class ModuleManager {
                 allEnabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.TRUE));
             } catch (Exception e) {
                 allDisabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.FALSE));
-                plugin.getLogger().severe("模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！" );
-                e.printStackTrace();
+                plugin.getLogger().log(Level.SEVERE, "模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！", e);
             }
         }
 

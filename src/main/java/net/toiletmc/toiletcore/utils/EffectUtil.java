@@ -11,6 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
 
 public class EffectUtil {
 
@@ -39,8 +40,7 @@ public class EffectUtil {
             potionEffectType = Registry.EFFECT.get(NamespacedKey.minecraft(string.toLowerCase()));
             return potionEffectType;
         } catch (Exception e) {
-            ToiletCore.getInstance().getLogger().warning("解析药水类型时出现错误！坐标：" + string);
-            ToiletCore.getInstance().getLogger().severe(e.getMessage());
+            ToiletCore.getInstance().getLogger().log(Level.WARNING, "解析药水类型时出现错误！坐标：" + string, e);
             return null;
         }
     }
@@ -55,8 +55,7 @@ public class EffectUtil {
             potionEffect = new PotionEffect(getEffectType(split[0]), Integer.parseInt(split[2]), Integer.parseInt(split[1]));
             return potionEffect;
         } catch (Exception e) {
-            ToiletCore.getInstance().getLogger().warning("解析药水时出现异常：" + effectString);
-            ToiletCore.getInstance().getLogger().warning(e.getMessage());
+            ToiletCore.getInstance().getLogger().log(Level.WARNING, "解析药水时出现异常：" + effectString, e);
             return null;
         }
     }

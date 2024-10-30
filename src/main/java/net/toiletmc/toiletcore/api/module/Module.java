@@ -2,8 +2,6 @@ package net.toiletmc.toiletcore.api.module;
 
 import org.bukkit.configuration.ConfigurationSection;
 
-import java.util.logging.Logger;
-
 public interface Module {
     void onEnable();
 
@@ -17,11 +15,11 @@ public interface Module {
 
     void saveData();
 
-    Logger getLogger();
-
     void info(String logInfo);
 
     void warning(String logWarning);
+
+    void exception(String description, Exception exception);
 
     void error(String logError);
 

@@ -23,6 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
 
 public final class ToiletCore extends JavaPlugin {
     @Getter
@@ -112,8 +113,8 @@ public final class ToiletCore extends JavaPlugin {
         try {
             spark = SparkProvider.get();
             getLogger().info("已挂钩到 Spark");
-        } catch (NoClassDefFoundError e) {
-            getLogger().severe("Spark 服务异常，请排查错误！");
+        } catch (Exception e) {
+            getLogger().log(Level.SEVERE, "Spark 服务异常，请排查错误！", e);
         }
     }
 
