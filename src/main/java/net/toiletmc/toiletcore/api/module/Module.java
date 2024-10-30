@@ -24,4 +24,6 @@ public interface Module {
     void warning(String logWarning);
 
     void error(String logError);
+
+    void debug(String logDebug);
 }

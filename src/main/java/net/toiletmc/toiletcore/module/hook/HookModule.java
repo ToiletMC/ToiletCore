@@ -1,5 +1,6 @@
 package net.toiletmc.toiletcore.module.hook;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,9 +32,9 @@ public class HookModule extends SimpleModule implements CommandExecutor, TabComp
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
-            @NotNull String[] args) {
+                             @NotNull String[] args) {
         var hooks = getHooks();
-        getLogger().info(hooks.toString());
+        debug("onCommand: " + hooks);
 
         if (args.length == 0) {
             return false;
@@ -84,7 +85,7 @@ public class HookModule extends SimpleModule implements CommandExecutor, TabComp
 
     @SuppressWarnings("unchecked")
     private ArrayList<Hook> getHooks() {
-        return new ArrayList<>((List<Hook>) getConfig().getList("hooks", List.of()));
+        return new ArrayList<>((List<Hook>) getConfig().getList("hooks", new ArrayList<>()));
     }
 
     private boolean handleRunCommand(CommandSender sender, String[] args, ArrayList<Hook> hooks) {
@@ -168,7 +169,7 @@ public class HookModule extends SimpleModule implements CommandExecutor, TabComp
                 return true;
             }
 
-            hooks.add(new Hook(name, List.of()));
+            hooks.add(new Hook(name, new ArrayList<>()));
             config.set("hooks", hooks);
             saveConfig();
             sender.sendMessage(HookManagerUI.mainPage(hooks));
@@ -189,7 +190,7 @@ public class HookModule extends SimpleModule implements CommandExecutor, TabComp
                     .findFirst()
                     .map(hook -> {
                         var groups = new ArrayList<>(hook.getGroups());
-                        groups.add(new HookGroup(groupName, List.of(), ""));
+                        groups.add(new HookGroup(groupName, new ArrayList<>(), ""));
                         hook.setGroups(groups);
                         config.set("hooks", hooks);
                         saveConfig();
@@ -328,7 +329,7 @@ public class HookModule extends SimpleModule implements CommandExecutor, TabComp
 
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
-            @NotNull String label, @NotNull String[] args) {
+                                                @NotNull String label, @NotNull String[] args) {
         if (args.length == 0) {
             return List.of("create", "manager", "addgroup", "editcmd", "deletegroup", "delete", "join", "leave");
         }

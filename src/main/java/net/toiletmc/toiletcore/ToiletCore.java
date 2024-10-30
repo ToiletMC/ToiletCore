@@ -26,6 +26,8 @@ import java.util.List;
 
 public final class ToiletCore extends JavaPlugin {
     @Getter
+    private boolean debugMode;
+    @Getter
     private static ToiletCore instance;
     private Spark spark = null;
     @Getter
@@ -41,6 +43,7 @@ public final class ToiletCore extends JavaPlugin {
     public void onEnable() {
         instance = this;
         saveDefaultConfig();
+        handleConfig();
 
         // Paper 的 spark 不知道在时候加载，暂时先这样。
         // https://github.com/PaperMC/Paper/issues/11416
@@ -85,8 +88,13 @@ public final class ToiletCore extends JavaPlugin {
 
     public void reloadPlugin() {
         reloadConfig();
+        handleConfig();
         moduleManager.disableAllModules();
         moduleManager.enableAllModules();
+    }
+
+    private void handleConfig() {
+        debugMode = getConfig().getBoolean("debug-mode", false);
     }
 
     @Deprecated
@@ -114,6 +122,15 @@ public final class ToiletCore extends JavaPlugin {
         moduleManager.enableAllModules();
     }
 
+    public double getLast10SecsTPS() {
+        if (spark == null) {
+            return 0;
+        }
+
+        DoubleStatistic<StatisticWindow.TicksPerSecond> tps = spark.tps();
+        return tps.poll(StatisticWindow.TicksPerSecond.SECONDS_10);
+    }
+
     public double getLast10SecsMSPT() {
         if (spark == null) {
             return 0;
@@ -131,14 +148,5 @@ public final class ToiletCore extends JavaPlugin {
 
         GenericStatistic<DoubleAverageInfo, StatisticWindow.MillisPerTick> msptInfo = spark.mspt();
         return msptInfo.poll(StatisticWindow.MillisPerTick.MINUTES_1).percentile95th();
-    }
-
-    public double getLast10SecsTPS() {
-        if (spark == null) {
-            return 0;
-        }
-
-        DoubleStatistic<StatisticWindow.TicksPerSecond> tps = spark.tps();
-        return tps.poll(StatisticWindow.TicksPerSecond.SECONDS_10);
     }
 }
