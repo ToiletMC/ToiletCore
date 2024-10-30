@@ -33,7 +33,9 @@ dependencies {
     compileOnly "io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT"
     compileOnly "fr.xephi:authme:5.6.0-SNAPSHOT"
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
-    implementation "me.lucko:helper:5.6.14"
+    compileOnly "me.lucko:helper:5.6.14"
+
+    implementation "com.squareup.okhttp3:okhttp:4.12.0"
 
     // 暂时先不用这个
     // implementation "de.exlll:configlib-yaml:4.5.0"
@@ -44,9 +46,18 @@ dependencies {
 
 shadowJar {
     minimize()
-    relocate 'me.lucko.helper', 'net.toiletmc.toiletcore.libs.helper'
-}
 
+    // 对 OkHttp 及其依赖进行 relocate 避免与其他插件冲突
+    relocate 'okhttp3', 'net.toiletmc.toiletcore.libs.okhttp3'
+    relocate 'okio', 'net.toiletmc.toiletcore.libs.okio'
+    relocate 'kotlin', 'net.toiletmc.toiletcore.libs.kotlin'
+    dependencies {
+        exclude(dependency('org.jetbrains:annotations'))
+    }
+
+    // 不再打包和重新定位 helper，保持 jar 的干净和清爽！
+    // relocate 'me.lucko.helper', 'net.toiletmc.toiletcore.libs.helper'
+}
 
 
 def targetJavaVersion = 21

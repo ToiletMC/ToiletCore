@@ -13,6 +13,7 @@ import net.toiletmc.toiletcore.module.eggrespawn.EggRespawnModule;
 import net.toiletmc.toiletcore.module.hook.HookModule;
 import net.toiletmc.toiletcore.module.lagalert.LagAlertModule;
 import net.toiletmc.toiletcore.module.premium.PremiumModule;
+import net.toiletmc.toiletcore.module.qq.QQModule;
 import net.toiletmc.toiletcore.module.shart.ShartModule;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -94,7 +95,8 @@ public class ModuleManager {
         HOOK("hook", HookModule.class, "???"),
         EGGRESPAWN("egg-respawn", EggRespawnModule.class, "龙蛋重生计划"),
         ANTIENDERMAN("anti-enderman", AntiEndermanModule.class, "末影人计划生育"),
-        CDK("cdk", CDKModule.class, "CDK");
+        CDK("cdk", CDKModule.class, "CDK"),
+        QQ("qq", QQModule.class, "QQ模块");
 
         public final String id;
         public final Class<? extends SimpleModule> moduleClass;

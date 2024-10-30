@@ -42,16 +42,20 @@ public class ShartModule extends SimpleModule implements CommandExecutor, Listen
             return true;
         }
 
-        if (sender.hasPermission("toiletcore.shart.others") && args.length >= 1) {
-            Player player = Bukkit.getPlayer(args[0]);
-            if (player == null) {
-                sender.sendMessage(Component.text(args[0] + " 当前并不在线！").color(NamedTextColor.RED));
-                return true;
-            }
-            if (args.length > 1 && args[1].equals("rainbow")) {
-                new ScatterShartTask(this, player, true);
+        if (sender.hasPermission("toiletcore.use.shart.others")) {
+            if (args.length >= 1) {
+                Player player = Bukkit.getPlayer(args[0]);
+                if (player == null) {
+                    sender.sendMessage(Component.text(args[0] + " 当前并不在线！").color(NamedTextColor.RED));
+                    return true;
+                }
+                if (args.length > 1 && args[1].equals("rainbow")) {
+                    new ScatterShartTask(this, player, true);
+                } else {
+                    new ScatterShartTask(this, player, false);
+                }
             } else {
-                new ScatterShartTask(this, player, false);
+                sender.sendMessage(Component.text("未知的指令").color(NamedTextColor.RED));
             }
         } else {
             sender.sendMessage(Component.text("未知的指令").color(NamedTextColor.RED));
@@ -63,7 +67,7 @@ public class ShartModule extends SimpleModule implements CommandExecutor, Listen
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                 @NotNull String label, @NotNull String[] args) {
-        if (!sender.hasPermission("toiletcore.shart.others")) {
+        if (!sender.hasPermission("toiletcore.use.shart.others")) {
             return null;
         }
 

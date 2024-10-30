@@ -10,3 +10,4 @@ module:
   egg-respawn: false
   anti-enderman: true
   cdk: false
+  qq: false

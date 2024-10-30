@@ -5,9 +5,10 @@ api-version: "1.21"
 authors: [ TheLittle_Yang, zty012 ]
 
 softdepend:
-  - "spark"
   - "AuthMe"
+  - "helper"
   - "PlaceholderAPI"
+  - "spark"
 
 description: Plugin for ToiletMC Server
 website: https://toiletmc.net
@@ -18,24 +19,28 @@ commands:
     permission: toiletcore.use
   shart:
     aliases: [ shit, poop, poo ]
-    permission: toiletcore.shart.use
+    permission: toiletcore.use.shart
   hook:
-    permission: toiletcore.hook.use
+    permission: toiletcore.use.hook
   cdk:
-    permission: toiletcore.cdk.use
+    permission: toiletcore.use.cdk
+  qq:
+    permission: toiletcore.use.qq
 
 permissions:
   toiletcore.use:
     default: op
   toiletcore.admin:
     default: op
-  toiletcore.shart.use:
-    default: true
-  toiletcore.shart.others:
+  toiletcore.admin.cdk:
     default: op
-  toiletcore.hook.use:
+  toiletcore.use.shart:
     default: true
-  toiletcore.cdk.use:
-    default: true
-  toiletcore.cdk.admin:
+  toiletcore.use.shart.others:
     default: op
+  toiletcore.use.hook:
+    default: true
+  toiletcore.use.cdk:
+    default: true
+  toiletcore.use.qq:
+    default: true

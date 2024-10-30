@@ -4,7 +4,9 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextDecoration;
 import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.toiletmc.toiletcore.HttpHelper;
 import net.toiletmc.toiletcore.ToiletCore;
+import net.toiletmc.toiletcore.http.request.MSPTRequest;
 import net.toiletmc.toiletcore.utils.PlayerUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -16,17 +18,9 @@ public class MSPTCheckTask extends BukkitRunnable {
     private final LagAlertModule module;
     private int broTimes = 0;
 
-    private final int maxMSPT;
-    private final String message;
-    private final boolean givePatato;
-
     public MSPTCheckTask(LagAlertModule module) {
         this.module = module;
-        this.givePatato = module.getConfig().getBoolean("give-potato", true);
-        maxMSPT = module.getConfig().getInt("max-mspt", 80);
-        message = module.getConfig().getString("lag-broadcast", "请通知管理员填写提示信息。");
     }
-
 
     @Override
     public void run() {
@@ -35,22 +29,27 @@ public class MSPTCheckTask extends BukkitRunnable {
             return;
         }
 
-        if (ToiletCore.getInstance().getLast1MinMSPT() >= maxMSPT) {
+        if (ToiletCore.getInstance().getLast1MinMSPT() >= module.getMaxMSPT()) {
             broadcastMessage();
-            if (givePatato) givePotato();
+            if (module.isGivePotato()) givePotato();
+            if (module.isEnableWebhook()) handleWebhook();
             broTimes++;
         }
     }
 
 
     private void broadcastMessage() {
-        String willSend = message.replaceAll(
+        String willSend = module.getMessage().replaceAll(
                 "%mspt%", String.valueOf((int) ToiletCore.getInstance().getLast1MinMSPT()));
         Bukkit.getServer().sendMessage(MiniMessage.miniMessage().deserialize(willSend));
     }
 
     private void givePotato() {
         Bukkit.getOnlinePlayers().forEach(player -> PlayerUtil.giveOrDrop(player, getPotato()));
+    }
+
+    private void handleWebhook() {
+        HttpHelper.sendHttpRequest(module.getWebhookUrl(), new MSPTRequest((int) ToiletCore.getInstance().getLast1MinMSPT(), ""));
     }
 
     private ItemStack getPotato() {

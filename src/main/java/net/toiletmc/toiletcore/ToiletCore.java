@@ -7,12 +7,13 @@ import me.lucko.spark.api.statistic.StatisticWindow;
 import me.lucko.spark.api.statistic.misc.DoubleAverageInfo;
 import me.lucko.spark.api.statistic.types.DoubleStatistic;
 import me.lucko.spark.api.statistic.types.GenericStatistic;
+import net.toiletmc.toiletcore.http.request.MSPTRequest;
 import net.toiletmc.toiletcore.module.ModuleManager;
 import net.toiletmc.toiletcore.module.hook.Hook;
 import net.toiletmc.toiletcore.module.hook.HookGroup;
 
+import net.toiletmc.toiletcore.module.lagalert.LagAlertModule;
 import net.toiletmc.toiletcore.utils.MsgUtil;
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -21,7 +22,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -68,10 +68,9 @@ public final class ToiletCore extends JavaPlugin {
                     MsgUtil.sendNormalText(sender, "插件已重载！");
                 }
                 case "debug" -> {
-                    sender.sendMessage("Bukkit.getTickTimes() 执行结果：" + Arrays.toString(Bukkit.getTickTimes()));
-                    sender.sendMessage("Bukkit.getCurrentTick() 执行结果：" + Bukkit.getCurrentTick());
-                    sender.sendMessage("Bukkit.getTPS() 执行结果：" + Arrays.toString(Bukkit.getTPS()));
-                    sender.sendMessage("Bukkit.getAverageTickTime() 执行结果：" + Bukkit.getAverageTickTime());
+                    String url = moduleManager.getModuleInstance(LagAlertModule.class).getWebhookUrl();
+                    HttpHelper.sendHttpRequest(url, new MSPTRequest((int) getLast1MinMSPT(), "debug test"));
+                    MsgUtil.sendNormalText(sender, "LagAlert消息已上报！");
                 }
             }
         }
