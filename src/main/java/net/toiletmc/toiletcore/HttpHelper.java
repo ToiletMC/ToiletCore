@@ -20,26 +20,23 @@ public class HttpHelper {
                 .post(requestBody)
                 .build();
 
-        Bukkit.getScheduler().runTaskAsynchronously(ToiletCore.getInstance(), () -> {
+        ToiletCore plugin = ToiletCore.getInstance();
+
+        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
             try (Response response = client.newCall(request).execute()) {
                 String responseBody = response.body() != null ? response.body().string() : null;
 
                 if (response.isSuccessful()) {
-                    Bukkit.getScheduler().runTask(ToiletCore.getInstance(), () -> {
-                        if (ToiletCore.getInstance().isDebugMode()) {
-                            ToiletCore.getInstance().getLogger().warning("[HttpHelper] [" + url + "] 请求成功: " + response.code() + " 响应内容：" + responseBody);
-                        }
-                    });
+                    Bukkit.getScheduler().runTask(plugin, () ->
+                            plugin.debugLog("[HttpHelper] [" + url + "] 请求成功: " + response.code() + " 响应内容：" + responseBody));
                 } else {
-                    Bukkit.getScheduler().runTask(ToiletCore.getInstance(), () -> {
-                        ToiletCore.getInstance().getLogger().warning("[HttpHelper] [" + url + "] 请求失败: " + response.code() + " 响应内容：" + responseBody);
-                    });
+                    Bukkit.getScheduler().runTask(plugin, () ->
+                            plugin.getLogger().warning("[HttpHelper] [" + url + "] 请求失败: " + response.code() + " 响应内容：" + responseBody));
                 }
 
             } catch (IOException e) {
-                Bukkit.getScheduler().runTask(ToiletCore.getInstance(), () -> {
-                    ToiletCore.getInstance().getLogger().log(Level.WARNING, "[HttpHelper] 请求 url [" + url + "] 时出现异常。", e);
-                });
+                Bukkit.getScheduler().runTask(plugin, () ->
+                        plugin.getLogger().log(Level.WARNING, "[HttpHelper] 请求 url [" + url + "] 时出现异常。", e));
             }
 
         });

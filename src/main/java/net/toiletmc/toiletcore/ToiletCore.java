@@ -149,4 +149,10 @@ public final class ToiletCore extends JavaPlugin {
         GenericStatistic<DoubleAverageInfo, StatisticWindow.MillisPerTick> msptInfo = spark.mspt();
         return msptInfo.poll(StatisticWindow.MillisPerTick.MINUTES_1).percentile95th();
     }
+
+    public void debugLog(String message) {
+        if (debugMode) {
+            getLogger().warning(message);
+        }
+    }
 }
