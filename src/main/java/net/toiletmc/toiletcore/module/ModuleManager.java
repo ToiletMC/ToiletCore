@@ -4,6 +4,7 @@ import it.unimi.dsi.fastutil.Pair;
 import it.unimi.dsi.fastutil.objects.ObjectObjectImmutablePair;
 import net.toiletmc.toiletcore.ToiletCore;
 import net.toiletmc.toiletcore.api.module.SimpleModule;
+import net.toiletmc.toiletcore.module.antichunkloader.AntiChunkLoaderModule;
 import net.toiletmc.toiletcore.module.antienderman.AntiEndermanModule;
 import net.toiletmc.toiletcore.module.authme.AuthmeModule;
 import net.toiletmc.toiletcore.module.cdk.CDKModule;
@@ -95,6 +96,7 @@ public class ModuleManager {
         HOOK("hook", HookModule.class, "???"),
         EGGRESPAWN("egg-respawn", EggRespawnModule.class, "龙蛋重生计划"),
         ANTIENDERMAN("anti-enderman", AntiEndermanModule.class, "末影人计划生育"),
+        ANTICHUNKLOADER("anti-chunk-loader", AntiChunkLoaderModule.class, "禁止区块加载器"),
         CDK("cdk", CDKModule.class, "CDK"),
         QQ("qq", QQModule.class, "QQ模块");
 

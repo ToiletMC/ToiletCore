@@ -9,5 +9,6 @@ module:
   hook: false
   egg-respawn: false
   anti-enderman: true
+  anti-chunk-loader: true
   cdk: false
   qq: false
