@@ -117,10 +117,10 @@ public class DebugStickModule extends SimpleModule implements Listener {
         String blockType = block.getType().toString().toLowerCase();
         return NBT.getComponents(debugStick, nbt -> {
             if (nbt.hasTag("minecraft:debug_stick_state")) {
-                ReadableNBT compound = nbt.getCompound("minecraft:debug_stick_state");
-                if (compound != null) {
-                    String string = compound.getString("minecraft:" + blockType);
-                    return "waterlogged".equals(string);
+                ReadableNBT debugStickState = nbt.getCompound("minecraft:debug_stick_state");
+                if (debugStickState != null) {
+                    String currentState = debugStickState.getString("minecraft:" + blockType);
+                    return "waterlogged".equals(currentState);
                 }
             }
             return false;
