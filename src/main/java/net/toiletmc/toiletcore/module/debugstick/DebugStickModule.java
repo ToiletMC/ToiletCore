@@ -1,5 +1,7 @@
 package net.toiletmc.toiletcore.module.debugstick;
 
+import de.tr7zw.changeme.nbtapi.NBT;
+import de.tr7zw.changeme.nbtapi.iface.ReadableNBT;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.toiletmc.toiletcore.api.module.SimpleModule;
@@ -9,6 +11,8 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.Ageable;
+import org.bukkit.block.data.BlockData;
+import org.bukkit.block.data.Waterlogged;
 import org.bukkit.block.data.type.Beehive;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -68,12 +72,18 @@ public class DebugStickModule extends SimpleModule implements Listener {
 
         Block clickedblock = event.getClickedBlock();
         if (clickedblock != null && action == Action.RIGHT_CLICK_BLOCK) {
+            BlockData blockData = clickedblock.getBlockData();
             if (blocklistBlocks.contains(clickedblock.getType()) ||
-                    clickedblock.getBlockData() instanceof Ageable ||
-                    clickedblock.getBlockData() instanceof Beehive) {
+                    blockData instanceof Ageable ||
+                    blockData instanceof Beehive) {
                 event.setUseItemInHand(Event.Result.DENY);
                 player.sendActionBar(Component.translatable(clickedblock)
                         .append(Component.text("已被列入调试棒黑名单！")).color(NamedTextColor.RED));
+            }
+
+            if (useWaterloggedState(clickedblock, item)) {
+                event.setUseItemInHand(Event.Result.DENY);
+                player.sendActionBar(Component.text("你不能切换方块的含水状态！").color(NamedTextColor.RED));
             }
         }
     }
@@ -93,6 +103,28 @@ public class DebugStickModule extends SimpleModule implements Listener {
 
     private void removeRecipe() {
         Bukkit.removeRecipe(new NamespacedKey(plugin, moduleEnum.toString()));
+    }
+
+    private boolean useWaterloggedState(Block block, ItemStack debugStick) {
+        if (!(block.getBlockData() instanceof Waterlogged)) {
+            return false;
+        }
+
+        if (debugStick == null || debugStick.getType() != Material.DEBUG_STICK) {
+            return false;
+        }
+
+        String blockType = block.getType().toString().toLowerCase();
+        return NBT.getComponents(debugStick, nbt -> {
+            if (nbt.hasTag("minecraft:debug_stick_state")) {
+                ReadableNBT compound = nbt.getCompound("minecraft:debug_stick_state");
+                if (compound != null) {
+                    String string = compound.getString("minecraft:" + blockType);
+                    return "waterlogged".equals(string);
+                }
+            }
+            return false;
+        });
     }
 }
 
