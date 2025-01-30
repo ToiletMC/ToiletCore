@@ -6,9 +6,8 @@ authors: [ TheLittle_Yang, zty012 ]
 
 softdepend:
   - "AuthMe"
-  - "helper"
-  - "PlaceholderAPI"
   - "spark"
+  - "LuckPerms"
 
 description: Plugin for ToiletMC Server
 website: https://toiletmc.net

@@ -1,11 +1,11 @@
 package net.toiletmc.toiletcore.module.effectonblock;
 
-import me.lucko.helper.serialize.Region;
 import net.toiletmc.toiletcore.utils.EffectUtil;
 import net.toiletmc.toiletcore.utils.RegionUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.util.BoundingBox;
 
 import java.util.List;
 
@@ -16,7 +16,7 @@ public class EOBRegion {
     private final String permission;
     private final int giveExp;
     private final List<PotionEffect> giveEffects;
-    private final Region region;
+    private final BoundingBox region;
 
     public EOBRegion(ConfigurationSection config) {
         region = RegionUtil.fromString(config.getString("region.min"),
@@ -38,7 +38,7 @@ public class EOBRegion {
      * @return 是否 tick 命中。
      */
     public boolean tick(Player player) {
-        if (!region.inRegion(player.getLocation()) ||
+        if (!region.contains(player.getLocation().toVector()) ||
                 (mustInWater && !player.isInWater()) ||
                 (needPermission && !player.hasPermission(permission))
         ) {

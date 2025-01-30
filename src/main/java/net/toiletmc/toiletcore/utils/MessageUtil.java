@@ -4,7 +4,7 @@ import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.command.CommandSender;
 
-public class MsgUtil {
+public class MessageUtil {
     public static void sendRedText(CommandSender sender, String message) {
         sender.sendMessage(Component.text(message).color(NamedTextColor.RED));
     }

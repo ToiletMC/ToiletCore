@@ -13,7 +13,7 @@ import net.toiletmc.toiletcore.module.hook.Hook;
 import net.toiletmc.toiletcore.module.hook.HookGroup;
 
 import net.toiletmc.toiletcore.module.lagalert.LagAlertModule;
-import net.toiletmc.toiletcore.utils.MsgUtil;
+import net.toiletmc.toiletcore.utils.MessageUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
@@ -24,6 +24,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.logging.Level;
+import java.util.stream.Stream;
 
 public final class ToiletCore extends JavaPlugin {
     @Getter
@@ -62,15 +63,25 @@ public final class ToiletCore extends JavaPlugin {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
                              @NotNull String[] args) {
         if (args.length == 1) {
+            if (sender.hasPermission("toiletcore.admin")) {
+                MessageUtil.sendRedText(sender, "未知的指令");
+                return true;
+            }
             switch (args[0]) {
                 case "reload" -> {
                     reloadPlugin();
-                    MsgUtil.sendNormalText(sender, "插件已重载！");
+                    MessageUtil.sendNormalText(sender, "插件已重载！");
                 }
                 case "debug" -> {
                     String url = moduleManager.getModuleInstance(LagAlertModule.class).getWebhookUrl();
                     HttpHelper.sendHttpRequest(url, new MSPTRequest((int) getLast1MinMSPT(), "debug test"));
-                    MsgUtil.sendNormalText(sender, "LagAlert消息已上报！");
+                    MessageUtil.sendNormalText(sender, "LagAlert消息已上报！");
+                }
+            }
+        } else {
+            if (args[0].equals("toggle")) {
+                if (args[1].equals("potato")) {
+
                 }
             }
         }
@@ -81,8 +92,9 @@ public final class ToiletCore extends JavaPlugin {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                 @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) {
-            return List.of("reload", "debug");
+            return Stream.of("reload", "debug", "toggle").sorted().toList();
         }
+
         return null;
     }
 

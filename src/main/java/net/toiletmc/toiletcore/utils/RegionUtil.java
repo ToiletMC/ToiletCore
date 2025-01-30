@@ -1,13 +1,12 @@
 package net.toiletmc.toiletcore.utils;
 
-import me.lucko.helper.serialize.Position;
-import me.lucko.helper.serialize.Region;
+import org.bukkit.util.BoundingBox;
 
 public class RegionUtil {
     /**
-     * 从2个Location字符串获取Region实例。
+     * 从 2个 Location 字符串 {@link LocationUtil#fromString(String) 获取 BoundingBox 实例。
      */
-    public static Region fromString(String p1, String p2) {
-        return Region.of(Position.of(LocationUtil.fromString(p1)), Position.of(LocationUtil.fromString(p2)));
+    public static BoundingBox fromString(String p1, String p2) {
+        return BoundingBox.of(LocationUtil.fromString(p1), LocationUtil.fromString(p2));
     }
 }
