@@ -87,25 +87,25 @@ public class ModuleManager {
     }
 
     public enum ModuleEnum {
-        AUTHME("authme", AuthmeModule.class, "Authme 密码算法支持"),
-        DEBUGSTICK("debug-stick", DebugStickModule.class, "生存模式调试棒"),
-        LAGALERT("lag-alert", LagAlertModule.class, "滞后监测程序"),
-        SHART("shart", ShartModule.class, "排泄"),
-        PREMIUM("premium", PremiumModule.class, "正版玩家奖励"),
-        EFFECTONBLOCK("effect-on-block", EffectOnBlockModule.class, "玩家区域内效果"),
-        HOOK("hook", HookModule.class, "???"),
-        EGGRESPAWN("egg-respawn", EggRespawnModule.class, "龙蛋重生计划"),
-        ANTIENDERMAN("anti-enderman", AntiEndermanModule.class, "末影人计划生育"),
-        ANTICHUNKLOADER("anti-chunk-loader", AntiChunkLoaderModule.class, "禁止区块加载器"),
-        CDK("cdk", CDKModule.class, "CDK"),
-        QQ("qq", QQModule.class, "QQ模块");
+        AUTHME(AuthmeModule.class, "Authme 密码算法支持"),
+        DEBUG_STICK(DebugStickModule.class, "生存模式调试棒"),
+        LAG_ALERT(LagAlertModule.class, "滞后监测程序"),
+        SHART(ShartModule.class, "排泄"),
+        PREMIUM(PremiumModule.class, "正版玩家奖励"),
+        EFFECT_ON_BLOCK(EffectOnBlockModule.class, "玩家区域内效果"),
+        HOOK(HookModule.class, "???"),
+        EGG_RESPAWN(EggRespawnModule.class, "龙蛋重生计划"),
+        ANTI_ENDERMAN(AntiEndermanModule.class, "末影人计划生育"),
+        ANTI_CHUNK_LOADER(AntiChunkLoaderModule.class, "禁止区块加载器"),
+        CDK(CDKModule.class, "CDK"),
+        QQ(QQModule.class, "QQ模块");
 
         public final String id;
         public final Class<? extends SimpleModule> moduleClass;
         public final String description;
 
-        ModuleEnum(String id, Class<? extends SimpleModule> moduleClass, String description) {
-            this.id = id;
+        ModuleEnum(Class<? extends SimpleModule> moduleClass, String description) {
+            this.id = this.name().replace('_', '-').toLowerCase();
             this.moduleClass = moduleClass;
             this.description = description;
         }
