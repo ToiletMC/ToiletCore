@@ -45,7 +45,9 @@ public class MSPTCheckTask extends BukkitRunnable {
     }
 
     private void givePotato() {
-        Bukkit.getOnlinePlayers().forEach(player -> PlayerUtil.giveOrDrop(player, getPotato()));
+        Bukkit.getOnlinePlayers().stream()
+                .filter(module::getReceivePotatoStatus)
+                .forEach(player -> PlayerUtil.giveOrDrop(player, getPotato()));
     }
 
     private void handleWebhook() {

@@ -1,7 +1,11 @@
 package net.toiletmc.toiletcore.module.lagalert;
 
 import lombok.Getter;
+import net.luckperms.api.LuckPerms;
+import net.luckperms.api.LuckPermsProvider;
+import net.luckperms.api.cacheddata.CachedMetaData;
 import net.toiletmc.toiletcore.api.module.SimpleModule;
+import org.bukkit.entity.Player;
 
 public class LagAlertModule extends SimpleModule {
     @Getter
@@ -35,4 +39,13 @@ public class LagAlertModule extends SimpleModule {
         checkTask.cancel();
     }
 
+    /**
+     * @param player 需要查询的玩家
+     * @return true 为接收服务器尸体；false 拒绝接收服务器尸体
+     */
+    public boolean getReceivePotatoStatus(Player player) {
+        LuckPerms luckPerms = LuckPermsProvider.get();
+        CachedMetaData metaData = luckPerms.getPlayerAdapter(Player.class).getMetaData(player);
+        return metaData.getMetaValue("toilet.setting.receive_potato", Boolean::parseBoolean).orElse(true);
+    }
 }
