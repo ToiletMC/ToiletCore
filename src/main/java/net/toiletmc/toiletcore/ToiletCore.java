@@ -104,10 +104,10 @@ public final class ToiletCore extends JavaPlugin {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                 @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) {
-            return Stream.of("reload", "debug", "toggle").sorted().toList();
+            return Stream.of("reload", "debug", "toggle").sorted().filter(s -> s.startsWith(args[0])).toList();
         } else if (args.length == 2) {
-            if (args[1].equals("toggle")) {
-                return Stream.of("potato").sorted().toList();
+            if (args[0].equals("toggle")) {
+                return Stream.of("potato").sorted().filter(s -> s.startsWith(args[1])).toList();
             }
         }
 
