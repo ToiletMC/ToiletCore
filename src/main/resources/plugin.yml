@@ -15,31 +15,31 @@ website: https://toiletmc.net
 commands:
   toiletcore:
     aliases: [ tc ]
-    permission: toiletcore.use
+    permission: toiletcore.command
   shart:
     aliases: [ shit, poop, poo ]
-    permission: toiletcore.use.shart
+    permission: toiletcore.command.shart
   hook:
-    permission: toiletcore.use.hook
+    permission: toiletcore.command.hook
   cdk:
-    permission: toiletcore.use.cdk
+    permission: toiletcore.command.cdk
   qq:
-    permission: toiletcore.use.qq
+    permission: toiletcore.command.qq
 
 permissions:
-  toiletcore.use:
-    default: op
   toiletcore.admin:
     default: op
   toiletcore.admin.cdk:
     default: op
-  toiletcore.use.shart:
+  toiletcore.command.toggle:
     default: true
-  toiletcore.use.shart.others:
+  toiletcore.command.shart:
+    default: true
+  toiletcore.command.shart.others:
     default: op
-  toiletcore.use.hook:
+  toiletcore.command.hook:
     default: true
-  toiletcore.use.cdk:
+  toiletcore.command.cdk:
     default: true
-  toiletcore.use.qq:
+  toiletcore.command.qq:
     default: true

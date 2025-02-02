@@ -42,7 +42,7 @@ public class ShartModule extends SimpleModule implements CommandExecutor, Listen
             return true;
         }
 
-        if (sender.hasPermission("toiletcore.use.shart.others")) {
+        if (sender.hasPermission("toiletcore.command.shart.others")) {
             if (args.length >= 1) {
                 Player player = Bukkit.getPlayer(args[0]);
                 if (player == null) {
@@ -67,7 +67,7 @@ public class ShartModule extends SimpleModule implements CommandExecutor, Listen
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
                                                 @NotNull String label, @NotNull String[] args) {
-        if (!sender.hasPermission("toiletcore.use.shart.others")) {
+        if (!sender.hasPermission("toiletcore.command.shart.others")) {
             return null;
         }
 

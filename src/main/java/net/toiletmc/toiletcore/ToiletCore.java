@@ -17,6 +17,7 @@ import net.toiletmc.toiletcore.utils.MessageUtil;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -80,8 +81,19 @@ public final class ToiletCore extends JavaPlugin {
             }
         } else {
             if (args[0].equals("toggle")) {
-                if (args[1].equals("potato")) {
+                Player player = sender instanceof Player ? (Player) sender : null;
 
+                if (args[1].equals("potato")) {
+                    LagAlertModule lagAlert = moduleManager.getModuleInstance(LagAlertModule.class);
+                    if (lagAlert == null) {
+                        MessageUtil.sendNormalText(sender, "土豆功能还未在服务器中启用！");
+                    } else {
+                        if (player == null) {
+                            MessageUtil.sendRedText(sender, "只有游戏中的玩家可以执行该命令！");
+                        } else {
+                            lagAlert.setReceivePotatoStatus(player, !lagAlert.getReceivePotatoStatus(player));
+                        }
+                    }
                 }
             }
         }
@@ -93,6 +105,10 @@ public final class ToiletCore extends JavaPlugin {
                                                 @NotNull String alias, @NotNull String[] args) {
         if (args.length == 1) {
             return Stream.of("reload", "debug", "toggle").sorted().toList();
+        } else if (args.length == 2) {
+            if (args[1].equals("toggle")) {
+                return Stream.of("potato").sorted().toList();
+            }
         }
 
         return null;

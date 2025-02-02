@@ -35,7 +35,7 @@ public class ModuleManager {
         List<Pair<ModuleEnum, Boolean>> allEnabledModules = new ArrayList<>();
         List<Pair<ModuleEnum, Boolean>> allDisabledModules = new ArrayList<>();
         for (ModuleEnum moduleEnum : ModuleEnum.values()) {
-            if (!isEnableInConfig(moduleEnum)) {
+            if (!isEnabledInConfig(moduleEnum)) {
                 allDisabledModules.add(new ObjectObjectImmutablePair<>(moduleEnum, Boolean.FALSE));
                 continue;
             }
@@ -73,7 +73,7 @@ public class ModuleManager {
         enabledModules.clear();
     }
 
-    private boolean isEnableInConfig(ModuleEnum moduleEnum) {
+    public boolean isEnabledInConfig(ModuleEnum moduleEnum) {
         FileConfiguration config = plugin.getConfig();
         return config.getBoolean("module." + moduleEnum.id, false);
     }

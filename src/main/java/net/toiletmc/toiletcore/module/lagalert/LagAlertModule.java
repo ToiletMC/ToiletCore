@@ -4,6 +4,9 @@ import lombok.Getter;
 import net.luckperms.api.LuckPerms;
 import net.luckperms.api.LuckPermsProvider;
 import net.luckperms.api.cacheddata.CachedMetaData;
+import net.luckperms.api.model.user.User;
+import net.luckperms.api.node.NodeType;
+import net.luckperms.api.node.types.MetaNode;
 import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.entity.Player;
 
@@ -47,5 +50,14 @@ public class LagAlertModule extends SimpleModule {
         LuckPerms luckPerms = LuckPermsProvider.get();
         CachedMetaData metaData = luckPerms.getPlayerAdapter(Player.class).getMetaData(player);
         return metaData.getMetaValue("toilet.setting.receive_potato", Boolean::parseBoolean).orElse(true);
+    }
+
+    public void setReceivePotatoStatus(Player player, boolean status) {
+        LuckPerms luckPerms = LuckPermsProvider.get();
+        User user = luckPerms.getPlayerAdapter(Player.class).getUser(player);
+        MetaNode metaNode = MetaNode.builder("toilet.setting.receive_potato", Boolean.toString(status)).build();
+        user.data().clear(NodeType.META.predicate(mn -> mn.getMetaKey().equals("toilet.setting.receive_potato")));
+        user.data().add(metaNode);
+        luckPerms.getUserManager().saveUser(user);
     }
 }
