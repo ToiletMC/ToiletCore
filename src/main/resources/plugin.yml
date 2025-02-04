@@ -31,6 +31,8 @@ permissions:
     default: op
   toiletcore.admin.cdk:
     default: op
+  toiletcore.command:
+    default: true
   toiletcore.command.toggle:
     default: true
   toiletcore.command.shart:
@@ -43,3 +45,5 @@ permissions:
     default: true
   toiletcore.command.qq:
     default: true
+  toiletcore.bypass.tpguard:
+    default: op

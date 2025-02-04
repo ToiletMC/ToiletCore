@@ -1,14 +1,4 @@
 debug-mode: false
-module:
-  authme: false
-  debug-stick: false
-  effect-on-block: false
-  lag-alert: false
-  premium: false
-  shart: true
-  hook: false
-  egg-respawn: false
-  anti-enderman: true
-  anti-chunk-loader: true
-  cdk: false
-  qq: false
+
+# 运行时自动填充
+module: { }
