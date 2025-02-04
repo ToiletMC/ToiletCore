@@ -39,7 +39,7 @@ public class ModuleManager {
         for (ModuleEnum moduleEnum : ModuleEnum.values()) {
             ModuleStatus moduleStatus = getConfigStatus(moduleEnum);
 
-            if (moduleStatus == ModuleStatus.DISABLE) {
+            if (moduleStatus == ModuleStatus.DISABLED) {
                 allDisabledModules.add(moduleEnum);
                 continue;
             }
@@ -112,18 +112,18 @@ public class ModuleManager {
 
     public enum ModuleEnum {
         AUTHME(AuthmeModule.class, "Authme 密码算法支持", ModuleStatus.AUTO),
-        DEBUG_STICK(DebugStickModule.class, "生存模式调试棒", ModuleStatus.DISABLE),
-        LAG_ALERT(LagAlertModule.class, "滞后监测程序", ModuleStatus.DISABLE),
-        SHART(ShartModule.class, "排泄", ModuleStatus.ENABLE),
-        PREMIUM(PremiumModule.class, "正版玩家奖励", ModuleStatus.DISABLE),
-        EFFECT_ON_BLOCK(EffectOnBlockModule.class, "玩家区域内效果", ModuleStatus.DISABLE),
-        HOOK(HookModule.class, "???", ModuleStatus.DISABLE),
-        EGG_RESPAWN(EggRespawnModule.class, "龙蛋重生计划", ModuleStatus.DISABLE),
-        ANTI_ENDERMAN(AntiEndermanModule.class, "末影人计划生育", ModuleStatus.DISABLE),
-        ANTI_CHUNK_LOADER(AntiChunkLoaderModule.class, "禁止区块加载器", ModuleStatus.DISABLE),
-        CDK(CDKModule.class, "CDK", ModuleStatus.DISABLE),
-        QQ(QQModule.class, "QQ模块", ModuleStatus.DISABLE),
-        TP_GUARD(TpGuardModule.class, "巡逻守卫者", ModuleStatus.DISABLE);
+        DEBUG_STICK(DebugStickModule.class, "生存模式调试棒", ModuleStatus.DISABLED),
+        LAG_ALERT(LagAlertModule.class, "滞后监测程序", ModuleStatus.DISABLED),
+        SHART(ShartModule.class, "排泄", ModuleStatus.ENABLED),
+        PREMIUM(PremiumModule.class, "正版玩家奖励", ModuleStatus.DISABLED),
+        EFFECT_ON_BLOCK(EffectOnBlockModule.class, "玩家区域内效果", ModuleStatus.DISABLED),
+        HOOK(HookModule.class, "???", ModuleStatus.DISABLED),
+        EGG_RESPAWN(EggRespawnModule.class, "龙蛋重生计划", ModuleStatus.DISABLED),
+        ANTI_ENDERMAN(AntiEndermanModule.class, "末影人计划生育", ModuleStatus.DISABLED),
+        ANTI_CHUNK_LOADER(AntiChunkLoaderModule.class, "禁止区块加载器", ModuleStatus.DISABLED),
+        CDK(CDKModule.class, "CDK", ModuleStatus.DISABLED),
+        QQ(QQModule.class, "QQ模块", ModuleStatus.DISABLED),
+        TP_GUARD(TpGuardModule.class, "巡逻守卫者", ModuleStatus.DISABLED);
 
         public final String id;
         public final Class<? extends SimpleModule> moduleClass;
@@ -139,8 +139,8 @@ public class ModuleManager {
     }
 
     public enum ModuleStatus {
-        ENABLE,
-        DISABLE,
+        ENABLED,
+        DISABLED,
         AUTO
     }
 }
