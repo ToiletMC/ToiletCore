@@ -1,4 +1,6 @@
+# 开启调试模式后，将在某些时刻打印调试信息。
 debug-mode: false
 
-# 运行时自动填充
+# 运行时自动填充。
+# 可能的值：auto enabled disabled
 module: { }
