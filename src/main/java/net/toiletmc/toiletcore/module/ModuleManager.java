@@ -6,6 +6,7 @@ import net.toiletmc.toiletcore.api.module.SimpleModule;
 import net.toiletmc.toiletcore.module.antichunkloader.AntiChunkLoaderModule;
 import net.toiletmc.toiletcore.module.antienderman.AntiEndermanModule;
 import net.toiletmc.toiletcore.module.authme.AuthmeModule;
+import net.toiletmc.toiletcore.module.betterdrops.BetterDropsModule;
 import net.toiletmc.toiletcore.module.cdk.CDKModule;
 import net.toiletmc.toiletcore.module.debugstick.DebugStickModule;
 import net.toiletmc.toiletcore.module.effectonblock.EffectOnBlockModule;
@@ -123,7 +124,8 @@ public class ModuleManager {
         ANTI_CHUNK_LOADER(AntiChunkLoaderModule.class, "禁止区块加载器", ModuleStatus.DISABLED),
         CDK(CDKModule.class, "CDK", ModuleStatus.DISABLED),
         QQ(QQModule.class, "QQ模块", ModuleStatus.DISABLED),
-        TP_GUARD(TpGuardModule.class, "巡逻守卫者", ModuleStatus.DISABLED);
+        TP_GUARD(TpGuardModule.class, "巡逻守卫者", ModuleStatus.DISABLED),
+        BETTER_DROPS(BetterDropsModule.class, "更好的掉落物", ModuleStatus.ENABLED);
 
         public final String id;
         public final Class<? extends SimpleModule> moduleClass;

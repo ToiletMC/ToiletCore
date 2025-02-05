@@ -17,6 +17,7 @@
 | Shart           | 上厕所                                                                                              |
 | QQ              | 只是提供命令的tab，实际命令由QueQiao处理。                                                                       |
 | TpGuard         | 巡逻守卫者，杜绝胡乱传送                                                                                     |
+| BetterDrops     | 更好的掉落物，让隐形物品展示框可以掉落                                                                              |
 
 ## Luckperms 元数据
 
