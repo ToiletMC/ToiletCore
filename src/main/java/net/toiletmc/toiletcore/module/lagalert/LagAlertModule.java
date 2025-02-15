@@ -49,7 +49,7 @@ public class LagAlertModule extends SimpleModule {
     public boolean getReceivePotatoStatus(Player player) {
         LuckPerms luckPerms = LuckPermsProvider.get();
         CachedMetaData metaData = luckPerms.getPlayerAdapter(Player.class).getMetaData(player);
-        return metaData.getMetaValue("toilet.setting.receive_potato", Boolean::parseBoolean).orElse(true);
+        return metaData.getMetaValue("toilet.setting.receive_potato", Boolean::parseBoolean).orElse(false);
     }
 
     public void setReceivePotatoStatus(Player player, boolean status) {
