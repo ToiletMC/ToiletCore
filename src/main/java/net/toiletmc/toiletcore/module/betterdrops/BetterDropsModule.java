@@ -7,6 +7,7 @@ import net.kyori.adventure.text.format.TextDecoration;
 import net.toiletmc.toiletcore.api.module.SimpleModule;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Hanging;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.event.EventHandler;
@@ -34,20 +35,29 @@ public class BetterDropsModule extends SimpleModule implements Listener {
             if (!itemFrame.isVisible()) {
                 event.setCancelled(true);
 
-                ItemStack invisibleItemFrame = new ItemStack(Material.ITEM_FRAME);
-                ItemMeta itemMeta = invisibleItemFrame.getItemMeta();
-                itemMeta.displayName(Component.text("隐形物品展示框").decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
-                invisibleItemFrame.setItemMeta(itemMeta);
-
-                NBT.modifyComponents(invisibleItemFrame, component -> {
-                    ReadWriteNBT compound = component.getOrCreateCompound("minecraft:entity_data");
-                    compound.setString("id", "minecraft:item_frame");
-                    compound.setByte("Invisible", (byte) 1);
-                });
-
                 entity.remove();
-                entity.getWorld().dropItem(entity.getLocation(), invisibleItemFrame);
+
+                World world = entity.getWorld();
+                world.dropItem(entity.getLocation(), getInvisibleItemFrame());
+                if (!itemFrame.getItem().isEmpty()) {
+                    world.dropItem(entity.getLocation(), itemFrame.getItem());
+                }
             }
         }
+    }
+
+    private ItemStack getInvisibleItemFrame() {
+        ItemStack invisibleItemFrame = new ItemStack(Material.ITEM_FRAME);
+        ItemMeta itemMeta = invisibleItemFrame.getItemMeta();
+        itemMeta.displayName(Component.text("隐形物品展示框").decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+        invisibleItemFrame.setItemMeta(itemMeta);
+
+        NBT.modifyComponents(invisibleItemFrame, component -> {
+            ReadWriteNBT compound = component.getOrCreateCompound("minecraft:entity_data");
+            compound.setString("id", "minecraft:item_frame");
+            compound.setByte("Invisible", (byte) 1);
+        });
+
+        return invisibleItemFrame;
     }
 }
