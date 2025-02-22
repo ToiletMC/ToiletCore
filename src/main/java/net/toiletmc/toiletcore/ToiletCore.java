@@ -50,8 +50,8 @@ public final class ToiletCore extends JavaPlugin {
 
         // Paper 的 spark 不知道在时候加载，暂时先这样。
         // https://github.com/PaperMC/Paper/issues/11416
-        new SparkInitTask().runTaskTimer(this, 20L, 20L);
-
+        // 2025-02-22 已尝试修复,启用 enable-immediately。
+        initSpark();
         initModuleManager();
     }
 
@@ -123,17 +123,6 @@ public final class ToiletCore extends JavaPlugin {
 
     private void handleConfig() {
         debugMode = getConfig().getBoolean("debug-mode", false);
-    }
-
-    @Deprecated
-    private class SparkInitTask extends BukkitRunnable {
-        @Override
-        public void run() {
-            initSpark();
-            if (spark != null) {
-                this.cancel();
-            }
-        }
     }
 
     private void initSpark() {
