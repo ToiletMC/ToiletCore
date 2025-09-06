@@ -10,19 +10,17 @@ import net.toiletmc.toiletcore.module.betterdrops.BetterDropsModule;
 import net.toiletmc.toiletcore.module.cdk.CDKModule;
 import net.toiletmc.toiletcore.module.debugstick.DebugStickModule;
 import net.toiletmc.toiletcore.module.effectonblock.EffectOnBlockModule;
-import net.toiletmc.toiletcore.module.eggrespawn.EggRespawnModule;
 import net.toiletmc.toiletcore.module.hook.HookModule;
 import net.toiletmc.toiletcore.module.lagalert.LagAlertModule;
+import net.toiletmc.toiletcore.module.magic.MagicModule;
 import net.toiletmc.toiletcore.module.premium.PremiumModule;
 import net.toiletmc.toiletcore.module.qq.QQModule;
 import net.toiletmc.toiletcore.module.shart.ShartModule;
 import net.toiletmc.toiletcore.module.tpguard.TpGuardModule;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 
 public class ModuleManager {
@@ -37,6 +35,19 @@ public class ModuleManager {
         plugin.getLogger().info("正在初始化模块……");
         Set<ModuleEnum> allEnabledModules = new HashSet<>();
         Set<ModuleEnum> allDisabledModules = new HashSet<>();
+
+        // 清理配置文件，删除不在插件中的模块
+        ConfigurationSection modules = plugin.getConfig().getConfigurationSection("module");
+        if (modules != null) {
+            List<String> stringList = Arrays.stream(ModuleEnum.values()).map(ModuleEnum -> ModuleEnum.id).toList();
+            modules.getKeys(false).forEach(key -> {
+                if (!stringList.contains(key)) {
+                    plugin.getConfig().set("module." + key, null);
+                    plugin.saveConfig();
+                }
+            });
+        }
+
         for (ModuleEnum moduleEnum : ModuleEnum.values()) {
             ModuleStatus moduleStatus = getConfigStatus(moduleEnum);
 
@@ -63,6 +74,9 @@ public class ModuleManager {
                 moduleInstance.onEnable();
                 enabledModules.add(moduleInstance);
                 allEnabledModules.add(moduleEnum);
+            } catch (NoClassDefFoundError err) {
+                allDisabledModules.add(moduleEnum);
+                plugin.getLogger().log(Level.SEVERE, "模块 " + moduleEnum.id + " 所需类缺失（可能未安装依赖或未正确打包）⚠️：" + err.getMessage());
             } catch (Exception e) {
                 allDisabledModules.add(moduleEnum);
                 plugin.getLogger().log(Level.SEVERE, "模块 " + moduleEnum.id + " 初始化时遇到错误⚠️！", e);
@@ -119,13 +133,14 @@ public class ModuleManager {
         PREMIUM(PremiumModule.class, "正版玩家奖励", ModuleStatus.DISABLED),
         EFFECT_ON_BLOCK(EffectOnBlockModule.class, "玩家区域内效果", ModuleStatus.DISABLED),
         HOOK(HookModule.class, "???", ModuleStatus.DISABLED),
-        EGG_RESPAWN(EggRespawnModule.class, "龙蛋重生计划", ModuleStatus.DISABLED),
         ANTI_ENDERMAN(AntiEndermanModule.class, "末影人计划生育", ModuleStatus.DISABLED),
         ANTI_CHUNK_LOADER(AntiChunkLoaderModule.class, "禁止区块加载器", ModuleStatus.DISABLED),
         CDK(CDKModule.class, "CDK", ModuleStatus.DISABLED),
         QQ(QQModule.class, "QQ模块", ModuleStatus.DISABLED),
         TP_GUARD(TpGuardModule.class, "巡逻守卫者", ModuleStatus.DISABLED),
-        BETTER_DROPS(BetterDropsModule.class, "更好的掉落物", ModuleStatus.ENABLED);
+        BETTER_DROPS(BetterDropsModule.class, "更好的掉落物", ModuleStatus.ENABLED),
+        MAGIC(MagicModule.class, "魔法兼容", ModuleStatus.AUTO),
+        ;
 
         public final String id;
         public final Class<? extends SimpleModule> moduleClass;

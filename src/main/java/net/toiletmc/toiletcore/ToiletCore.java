@@ -19,7 +19,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -64,7 +63,7 @@ public final class ToiletCore extends JavaPlugin {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label,
                              @NotNull String[] args) {
         if (args.length == 1) {
-            if (sender.hasPermission("toiletcore.admin")) {
+            if (!sender.hasPermission("toiletcore.admin")) {
                 MessageUtil.sendRedText(sender, "未知的指令");
                 return true;
             }

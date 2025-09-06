@@ -1,10 +1,10 @@
 plugins {
     id 'java'
-    id("io.github.goooler.shadow") version "8.1.8"
+    id("com.gradleup.shadow") version "9.1.0"
 }
 
 group = 'net.toiletmc'
-version = '1.3.2'
+version = '1.4.0'
 
 repositories {
     mavenCentral()
@@ -28,30 +28,42 @@ repositories {
         name = "CodeMC"
         url = uri("https://repo.codemc.io/repository/maven-public/")
     }
+    maven {
+        name = "jitpack"
+        url = uri("https://jitpack.io")
+    }
+//    maven {
+//        name = "elmakers"
+//        url = uri("https://maven.elmakers.com/repository/")
+//    }
     maven { url("https://repo.lucko.me/") }
 }
 
 dependencies {
-    // 不再需要 helper
+    // 不再需要 helper，移至独立插件。
     // compileOnly "me.lucko:helper:5.6.14"
 
     // https://github.com/ToiletMC/plugin-ToiletPAPI
     // PlaceholderAPI 已移至独立插件 ToiletPAPI，方便热加载而无需重启服务器。
     // compileOnly 'me.clip:placeholderapi:2.11.6'
 
-    compileOnly 'org.projectlombok:lombok:1.18.30'
-    annotationProcessor 'org.projectlombok:lombok:1.18.30'
-    compileOnly "io.papermc.paper:paper-api:1.21.1-R0.1-SNAPSHOT"
+    // 魔法插件的api中可能缺少某些功能，所以用Jar代替
+    // compileOnly 'com.elmakers.mine.bukkit:MagicAPI:9.4-SNAPSHOT'
+
+    compileOnly 'org.projectlombok:lombok:1.18.40'
+    annotationProcessor 'org.projectlombok:lombok:1.18.40'
+    compileOnly 'io.papermc.paper:paper-api:1.21.8-R0.1-SNAPSHOT'
     compileOnly "fr.xephi:authme:5.6.0-SNAPSHOT"
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
     compileOnly 'net.luckperms:api:5.4'
+    compileOnly 'com.github.Zrips:CMI-API:9.7.14.3'
     compileOnly(fileTree(dir: "libs", includes: ["*.jar"]))
 
     // 暂时先不用这个
     // implementation "de.exlll:configlib-yaml:4.5.0"
 
-    implementation "com.squareup.okhttp3:okhttp:4.12.0"
-    implementation("de.tr7zw:item-nbt-api:2.14.1")
+    implementation "com.squareup.okhttp3:okhttp:5.1.0"
+    implementation("de.tr7zw:item-nbt-api:2.15.2")
 }
 
 shadowJar {
@@ -65,9 +77,6 @@ shadowJar {
     dependencies {
         exclude(dependency('org.jetbrains:annotations'))
     }
-
-    // 不再打包和重新定位 helper，保持 jar 的干净和清爽！
-    // relocate 'me.lucko.helper', 'net.toiletmc.toiletcore.libs.helper'
 }
 
 

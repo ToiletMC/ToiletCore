@@ -21,9 +21,10 @@
 
 ## Luckperms 元数据
 
-| key                           | 简介                            |
-|-------------------------------|-------------------------------|
-| toilet.setting.receive_potato | `true` 或 `false`，是否接收服务器尸体到背包 |
+| key                           | 简介                            | 默认值   |
+|-------------------------------|-------------------------------|-------|
+| toilet.setting.receive_potato | `true` 或 `false`，是否接收服务器尸体到背包 | false |
+| toilet.setting.receive_potato | `true` 或 `false`，是否接收服务器尸体到背包 | false |
 
 ## 插件文档
 

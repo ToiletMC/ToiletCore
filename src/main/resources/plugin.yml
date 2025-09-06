@@ -8,6 +8,8 @@ softdepend:
   - "AuthMe"
   - "spark"
   - "LuckPerms"
+  - "CMI"
+  - "Magic"
 
 description: Plugin for ToiletMC Server
 website: https://toiletmc.net
