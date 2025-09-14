@@ -32,23 +32,17 @@ repositories {
         name = "jitpack"
         url = uri("https://jitpack.io")
     }
-//    maven {
-//        name = "elmakers"
-//        url = uri("https://maven.elmakers.com/repository/")
-//    }
+    maven {
+        name = "elmakers"
+        url = uri("https://maven.elmakers.com/repository/")
+    }
     maven { url("https://repo.lucko.me/") }
 }
 
 dependencies {
-    // 不再需要 helper，移至独立插件。
-    // compileOnly "me.lucko:helper:5.6.14"
-
     // https://github.com/ToiletMC/plugin-ToiletPAPI
     // PlaceholderAPI 已移至独立插件 ToiletPAPI，方便热加载而无需重启服务器。
     // compileOnly 'me.clip:placeholderapi:2.11.6'
-
-    // 魔法插件的api中可能缺少某些功能，所以用Jar代替
-    // compileOnly 'com.elmakers.mine.bukkit:MagicAPI:9.4-SNAPSHOT'
 
     compileOnly 'org.projectlombok:lombok:1.18.40'
     annotationProcessor 'org.projectlombok:lombok:1.18.40'
@@ -57,7 +51,10 @@ dependencies {
     compileOnly 'me.lucko:spark-api:0.1-SNAPSHOT'
     compileOnly 'net.luckperms:api:5.4'
     compileOnly 'com.github.Zrips:CMI-API:9.7.14.3'
-    compileOnly(fileTree(dir: "libs", includes: ["*.jar"]))
+    compileOnly("com.elmakers.mine.bukkit:MagicAPI:10.2")
+
+    // 暂时无需外部jar库
+    //compileOnly(fileTree(dir: "libs", includes: ["*.jar"]))
 
     // 暂时先不用这个
     // implementation "de.exlll:configlib-yaml:4.5.0"

@@ -139,7 +139,7 @@ public class ModuleManager {
         QQ(QQModule.class, "QQ模块", ModuleStatus.DISABLED),
         TP_GUARD(TpGuardModule.class, "巡逻守卫者", ModuleStatus.DISABLED),
         BETTER_DROPS(BetterDropsModule.class, "更好的掉落物", ModuleStatus.ENABLED),
-        MAGIC(MagicModule.class, "魔法兼容", ModuleStatus.AUTO),
+        MAGIC(MagicModule.class, "魔法兼容", ModuleStatus.DISABLED),
         ;
 
         public final String id;
